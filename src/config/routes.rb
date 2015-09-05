@@ -57,4 +57,9 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  root to: 'homepage#home'
+  match '/help',    to: 'homepage#help',    via: 'get'
+  match '/about',   to: 'homepage#about',   via: 'get'
+  match '/contact', to: 'homepage#contact', via: 'get'
 end
