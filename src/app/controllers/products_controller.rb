@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+ skip_before_filter :verify_authenticity_token  
 
   # GET /products
   # GET /products.json
@@ -12,6 +13,25 @@ class ProductsController < ApplicationController
   def show
   end
 
+  def buy
+    
+  end
+
+  def put_in_cart
+  end
+
+  def choose_new_type
+  end
+
+  def new_books
+    @product = Book.new
+  end
+  
+  def new_cloth
+  end
+
+  def new_snacks
+  end
   # GET /products/new
   def new
     @product = Product.new
@@ -69,6 +89,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:seller_id, :name, :quantity, :price, :description, :actable_id, :actable_type)
+      params.require(:product).permit(:name, :quantity, :price, :description)
     end
 end

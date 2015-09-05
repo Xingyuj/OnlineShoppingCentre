@@ -1,8 +1,21 @@
 Rails.application.routes.draw do
-  resources :products
+  resources :products do
+    collection do 
+      get :choose_new_type
+      get :new_books
+      get :new_cloth
+      get :new_snacks
+    end
+
+    member do
+      get :buy
+      get :put_in_cart
+    end
+  end
   resources :cart_products
   resources :orders
   devise_for :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

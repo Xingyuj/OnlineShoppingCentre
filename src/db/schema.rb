@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905040715) do
+ActiveRecord::Schema.define(version: 20150905083058) do
 
   create_table "books", force: :cascade do |t|
-    t.integer  "product_id"
     t.string   "name"
     t.string   "publisher"
     t.string   "author"
@@ -31,7 +30,6 @@ ActiveRecord::Schema.define(version: 20150905040715) do
   end
 
   create_table "cloths", force: :cascade do |t|
-    t.integer  "product_id"
     t.integer  "size"
     t.string   "material"
     t.string   "brand"
@@ -74,7 +72,6 @@ ActiveRecord::Schema.define(version: 20150905040715) do
   end
 
   create_table "snacks", force: :cascade do |t|
-    t.integer  "product_id"
     t.datetime "manufacture_date"
     t.datetime "best_before"
     t.string   "brand"
