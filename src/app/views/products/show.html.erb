@@ -1,39 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Seller:</strong>
-  <%= @product.seller_id %>
-</p>
+  <% @product.specific.attributes.each_pair do |name, value| %>
+    <%= name %>: <%= value %> <br>
+  <% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
-
-<p>
-  <strong>Quantity:</strong>
-  <%= @product.quantity %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Actable:</strong>
-  <%= @product.actable_id %>
-</p>
-
-<p>
-  <strong>Actable type:</strong>
-  <%= @product.actable_type %>
-</p>
-
+<%= link_to 'Buy it Now!', buy_product_path(@product) %> |
+<%= link_to 'Put in Cart', put_in_cart_product_path(@product) %> |
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

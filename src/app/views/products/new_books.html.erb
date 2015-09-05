@@ -1,0 +1,15 @@
+<h1>New Books</h1>
+
+<form action="/products" id="create_book" method="post">
+	<label for="name">name</label>:
+  <input id="name" name="name" type="text"/><br />
+	<label for="price">Price</label>:
+  <input id="price" name="price" type="text"/><br />
+	<label for="quantity">quantity</label>:
+  <input id="quantity" name="quantity" type="text"/><br />
+	<label for="description">description</label>:
+  <input id="description" name="description" type="text"/><br />
+  <input name="commit" type="submit" value="Create Book" />
+</form>
+
+<%= link_to 'Back', products_path %>
