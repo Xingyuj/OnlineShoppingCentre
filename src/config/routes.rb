@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     end
   end
   resources :cart_products
-  resources :orders
+  resources :orders do
+    member do
+      get :purchase
+    end
+  end
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.

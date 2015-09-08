@@ -13,13 +13,6 @@ class ProductsController < ApplicationController
   def show
   end
 
-  def buy
-    
-  end
-
-  def put_in_cart
-  end
-
   def choose_new_type
   end
 

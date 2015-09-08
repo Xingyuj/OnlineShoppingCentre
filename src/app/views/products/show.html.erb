@@ -1,7 +1,14 @@
-
   <% @product.specific.attributes.each_pair do |name, value| %>
     <%= name %>: <%= value %> <br>
   <% end %>
+
+ <%= form_tag("../orders/:id/purchase", method: "get") do %>
+  <%= hidden_field_tag(:product_id, @product.id) %>
+  <%= label_tag(:amount, "Amount:") %>
+  <%= text_field_tag(:amount) %>
+  <%= submit_tag("buy") %>
+  <%= submit_tag("put in cart") %>
+<% end %>
 
 <%= link_to 'Buy it Now!', buy_product_path(@product) %> |
 <%= link_to 'Put in Cart', put_in_cart_product_path(@product) %> |

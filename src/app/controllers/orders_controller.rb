@@ -21,9 +21,31 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  def purchase
+    if params[:commit] === "buy"
+      buy params[:amount], params["product_id"]
+    elsif params[:commit] === "put in cart"
+      put_in_cart params[:amount], params["product_id"]
+    end
+  end
+
+  def buy amount, product_id
+    product = Product.find product_id
+    total_price = amount.to_d * product[:price].to_d
+    @order_param = {amount: amount, total_price: total_price.to_s}
+    attributes = {buyer_id: current_user.id, seller_id: product.seller_id, status: "unpaid", total_price: total_price}
+    # @order = Order.new attributes
+    render :buy
+  end
+
+  def put_in_cart
+    
+  end
+
   # POST /orders
   # POST /orders.json
   def create
+    puts "<<<<<<<<<<<" + order_params.to_s
     @order = Order.new(order_params)
 
     respond_to do |format|
