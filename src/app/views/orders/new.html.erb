@@ -1,5 +1,37 @@
-<h1>New Order</h1>
+<h1> This is new in order </h1>
 
-<%= render 'form' %>
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :product_id, value: @product_params[:product_id] %><br>
+  <%= f.hidden_field :amount, value: @product_params[:amount] %><br>
+
+  <div class="field">
+    <%= f.label :postcode %><br>
+    <%= f.number_field :postcode %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
 
 <%= link_to 'Back', orders_path %>

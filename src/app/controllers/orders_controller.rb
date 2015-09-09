@@ -15,39 +15,20 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @product_params = {amount: params["amount"], product_id: params["product"]}
+    render :new
   end
 
   # GET /orders/1/edit
   def edit
   end
 
-  def purchase
-    if params[:commit] === "buy"
-      buy params[:amount], params["product_id"]
-    elsif params[:commit] === "put in cart"
-      put_in_cart params[:amount], params["product_id"]
-    end
-  end
-
-  def buy amount, product_id
-    product = Product.find product_id
-    total_price = amount.to_d * product[:price].to_d
-    @order_param = {amount: amount, total_price: total_price.to_s}
-    attributes = {buyer_id: current_user.id, seller_id: product.seller_id, status: "unpaid", total_price: total_price}
-    # @order = Order.new attributes
-    render :buy
-  end
-
-  def put_in_cart
-    
-  end
-
   # POST /orders
   # POST /orders.json
   def create
-    puts "<<<<<<<<<<<" + order_params.to_s
-    @order = Order.new(order_params)
-
+    attributes = {"current_user_id" => current_user.id}
+    attributes.merge! order_params
+    @order = Order.new(attributes)
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -91,6 +72,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:buyer_id, :seller_id, :status, :total_price, :postcode, :address, :phone)
+      params.require(:order).permit(:buyer_id, :seller_id, :status, :total_price, :postcode, :address, :phone, :product_id, :amount, :current_user_id)
     end
 end

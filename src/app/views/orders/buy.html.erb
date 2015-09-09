@@ -18,8 +18,10 @@
 
   <div class="field">
   	total_price: <%= @order_param[:total_price] %> <br>
+    <%= f.text_field :buyer_id, @order.buyer_id %>
+
   </div>
-  
+
   <div class="field">
     <%= f.label :postcode %><br>
     <%= f.number_field :postcode %>
