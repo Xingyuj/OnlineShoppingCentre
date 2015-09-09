@@ -16,7 +16,6 @@ class Order < ActiveRecord::Base
 	def set_attributes amount, product_id, current_user_id
 		product = Product.find product_id
 		total_price = amount.to_d * product.price.to_d
-		puts "<><><><>"+product.inspect
    		attributes = {buyer_id: current_user_id, seller_id: product.seller_id, status: "unpaid", total_price: total_price}
    		self.attributes = attributes
    		attrs = {product_id: product_id, quantity: amount}
