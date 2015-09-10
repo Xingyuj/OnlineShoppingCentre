@@ -4,7 +4,14 @@ $(function() {
   $('#buynow').click( function(){
   	var x=document.getElementById("amount")
       window.location.href='../orders/new?product='+product_id+'&amount='+x.value
-   
+  });
+
+  $('#putcart').click( function(){
+  	var amount = document.getElementById("amount")
+  	$.get('../cart_products/new?product='+product_id+'&amount='+amount.value, function(data) {
+  	  console.log(data);
+  	  alert("Successful put in cart");
+  	});
   });
 });
 <% end %>

@@ -14,7 +14,22 @@ class CartProductsController < ApplicationController
 
   # GET /cart_products/new
   def new
-    @cart_product = CartProduct.new
+    @product_params = {quantity: params["amount"], product_id: params["product"]}
+    @cart_product = CartProduct.new @product_params
+    current_user.cart_products << @cart_product
+    if @cart_product.save
+        respond_to do |format|
+          format.html { redirect_to @cart_product, notice: 'Cart product was successfully created.' }
+          format.json { render :show, status: :created, location: @product }
+          return
+        end
+    else
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render json: @cart_product.errors, status: :unprocessable_entity }
+          return
+        end
+    end
   end
 
   # GET /cart_products/1/edit
