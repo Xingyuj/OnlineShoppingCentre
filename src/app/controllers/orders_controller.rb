@@ -23,6 +23,19 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  def show_order
+    type = params["type"]
+    if type.to_s == 'purchase'
+      @orders = Order.where(buyer_id: current_user.id)
+      render :show_purchase_order
+      return
+    elsif type == "sell"
+      @orders = Order.where(seller_id: current_user.id)
+      render :show_sell_order
+      return
+    end
+  end
+
   # POST /orders
   # POST /orders.json
   def create

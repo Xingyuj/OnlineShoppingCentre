@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     end
   end
   resources :orders do
+    collection do
+      get :show_order
+    end
     member do
       get :purchase
     end
