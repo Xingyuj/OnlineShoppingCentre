@@ -15,3 +15,44 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+
+// get the id of the product
+var href = window.location.href;
+function getHrefId(href) {
+    var id = "";
+    var start = 0;
+    for (var i = href.length - 1; i >= 0; i--) {
+        if (href.charAt(i) === "/") {
+            start = i;
+            break;
+        }
+    }
+    start++;
+    id = href.substring(start, href.length);
+    return parseInt(id);
+}
+
+$(function() {
+    // buy the product at once
+    $('#buynow').click( function(){
+        var amount =document.getElementById("cart_product_quantity");
+        if(amount.value > amount.max) {
+            alert("the purchased number cannot exceed the stock!")
+        }
+        else {
+            window.location.href='../orders/new?product='+getHrefId(href)+'&amount='+amount.value;
+        }
+
+    });
+
+    // put the product in the cart
+    $('#putcart').click( function(){
+        var amount = document.getElementById("amount");
+        if(amount.value > amount.max){
+            alert("the purchased number cannot exceed the stock!")
+        }
+        else {
+            window.location.href = '../cart_products/new?product='+getHrefId(href)+'&amount='+amount.value;
+        }
+    });
+});

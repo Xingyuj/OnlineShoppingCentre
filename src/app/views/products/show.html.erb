@@ -1,29 +1,11 @@
-<%= javascript_tag do %>
-var product_id = <%= @product.id.to_s %>;
-$(function() {
-  $('#buynow').click( function(){
-  	var x=document.getElementById("amount")
-      window.location.href='../orders/new?product='+product_id+'&amount='+x.value
-  });
-
-  $('#putcart').click( function(){
-  	var amount = document.getElementById("amount")
-  	$.get('../cart_products/new?product='+product_id+'&amount='+amount.value, function(data) {
-  	  console.log(data);
-  	  alert("Successful put in cart");
-  	});
-  });
-});
-<% end %>
-
-  <% @product.specific.attributes.each_pair do |name, value| %>
+<p id="notice"><%= notice %></p>
+<% @product.specific.attributes.each_pair do |name, value| %>
     <%= name %>: <%= value %> <br>
   <% end %>
 
-Amount: <input id="amount" type="text" name="amount" value="">
-
-<a id="buynow" href="javascript:void(0)" >Buy it Now</a>
-<a id="putcart" href="javascript:void(0)" >Put in Cart</a>
+Amount: <%= number_field(:cart_product, :quantity, in: 1..@product.quantity, step: 1) %>
+<a id="buynow" >Buy it Now</a>
+<a id="putcart"  >Put in Cart</a>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

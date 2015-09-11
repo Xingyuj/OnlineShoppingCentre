@@ -12,11 +12,13 @@ Rails.application.routes.draw do
       get :put_in_cart
     end
   end
+
   resources :cart_products do
     collection do
       get :show_cart
     end
   end
+
   resources :orders do
     member do
       get :purchase

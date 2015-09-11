@@ -1,6 +1,5 @@
 class CartProductsController < ApplicationController
   before_action :set_cart_product, only: [:show, :edit, :update, :destroy]
-
   # GET /cart_products
   # GET /cart_products.json
   def index
@@ -15,24 +14,22 @@ class CartProductsController < ApplicationController
   def show_cart
     @cart_products = current_user.cart_products
   end
-  
-  # GET /cart_products/new
+
   def new
     @product_params = {quantity: params["amount"], product_id: params["product"]}
     @cart_product = CartProduct.new @product_params
     current_user.cart_products << @cart_product
-    if @cart_product.save
-        respond_to do |format|
-          format.html { redirect_to @cart_product, notice: 'Cart product was successfully created.' }
-          format.json { render :show, status: :created, location: @product }
-          return
-        end
+    @product = Product.find params["product"]
+    if @cart_product.quantity > @product.quantity
+      flash[:notice] = 'Sorry, the quantity of the product insufficient.'
+      redirect_to @produt
     else
-        respond_to do |format|
-          format.html { render :new }
-          format.json { render json: @cart_product.errors, status: :unprocessable_entity }
-          return
-        end
+      if @cart_product.save
+        flash[:notice] = 'Cart product was successfully created.'
+        redirect_to  @cart_product
+      else
+        redirect_to 500.html
+      end
     end
   end
 
