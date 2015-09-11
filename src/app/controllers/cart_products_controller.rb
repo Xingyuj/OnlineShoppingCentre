@@ -12,6 +12,10 @@ class CartProductsController < ApplicationController
   def show
   end
 
+  def show_cart
+    @cart_products = current_user.cart_products
+  end
+  
   # GET /cart_products/new
   def new
     @product_params = {quantity: params["amount"], product_id: params["product"]}
