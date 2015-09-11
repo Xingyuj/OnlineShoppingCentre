@@ -20,10 +20,16 @@ Rails.application.routes.draw do
   end
 
   resources :orders do
+    collection do
+      get :show_order
+    end
     member do
       get :purchase
+      get :check_out
+      get :payment
     end
   end
+
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.
