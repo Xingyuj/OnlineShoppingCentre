@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :payment]
 
   # GET /orders
   # GET /orders.json
@@ -21,6 +21,13 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
+  end
+
+  def check_out
+  end
+
+  def payment
+    @order.update_attribute(:status, "Paid")
   end
 
   def show_order
