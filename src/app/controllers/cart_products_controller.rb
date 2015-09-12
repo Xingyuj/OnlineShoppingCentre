@@ -16,10 +16,10 @@ class CartProductsController < ApplicationController
   end
 
   def new
-    @product_params = {quantity: params["amount"], product_id: params["product"]}
+    @product_params = {quantity: params["amount"], product_id: params["productId"]}
     @cart_product = CartProduct.new @product_params
     current_user.cart_products << @cart_product
-    @product = Product.find params["product"]
+    @product = Product.find params["productId"]
     if @cart_product.quantity > @product.quantity
       flash[:notice] = 'Sorry, the quantity of the product insufficient.'
       redirect_to @produt

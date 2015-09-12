@@ -3,7 +3,7 @@
     <%= name %>: <%= value %> <br>
   <% end %>
 
-Amount: <%= number_field(:cart_product, :quantity, in: 1..@product.quantity, step: 1) %>
+Amount: <%= number_field(:purchase, :quantity, in: 1..@product.quantity, step: 1) %>
 <a id="buynow" >Buy it Now</a>
 <a id="putcart"  >Put in Cart</a>
 

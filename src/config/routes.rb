@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     member do
       get :purchase
       get :check_out
-      get :payment
+      get :pay
     end
   end
 

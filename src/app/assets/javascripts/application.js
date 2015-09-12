@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
@@ -35,24 +36,24 @@ function getHrefId(href) {
 $(function() {
     // buy the product at once
     $('#buynow').click( function(){
-        var amount =document.getElementById("cart_product_quantity");
+        var amount =document.getElementById("purchase_quantity");
         if(amount.value > amount.max) {
             alert("the purchased number cannot exceed the stock!")
         }
         else {
-            window.location.href='../orders/new?product='+getHrefId(href)+'&amount='+amount.value;
+            window.location.href='../orders/new?productId='+getHrefId(href)+'&amount='+amount.value;
         }
 
     });
 
     // put the product in the cart
     $('#putcart').click( function(){
-        var amount = document.getElementById("amount");
+        var amount = document.getElementById("purchase_quantity");
         if(amount.value > amount.max){
             alert("the purchased number cannot exceed the stock!")
         }
         else {
-            window.location.href = '../cart_products/new?product='+getHrefId(href)+'&amount='+amount.value;
+            window.location.href = '../cart_products/new?productId='+getHrefId(href)+'&amount='+amount.value;
         }
     });
 });

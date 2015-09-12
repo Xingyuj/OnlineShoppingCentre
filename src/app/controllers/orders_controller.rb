@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :payment]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay]
 
   # GET /orders
   # GET /orders.json
@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
-    @product_params = {amount: params["amount"], product_id: params["product"]}
+    @product_params = {amount: params["amount"], product_id: params["productId"]}
     render :new
   end
 
@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   def check_out
   end
 
-  def payment
+  def pay
     @order.update_attribute(:status, "Paid")
   end
 
