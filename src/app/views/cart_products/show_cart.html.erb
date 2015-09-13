@@ -14,19 +14,23 @@
   </thead>
   
   <tbody>
-    <% @cart_products.each do |cart_product| %>
-      <tr>
-        <td><%= cart_product.user_id %></td>
-        <td><%= cart_product.product_id %></td>
-        <td><%= cart_product.quantity %></td>
-        <td><%= link_to 'Show', cart_product %></td>
-        <td><%= link_to 'Edit', edit_cart_product_path(cart_product) %></td>
-        <td><%= link_to 'Destroy', cart_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <%= form_tag('/orders/new_cart_orders') do %>
+        <% @cart_products.each do |cart_product| %>
+          <tr>
+             <td><%= check_box_tag "cart_product_ids[]", cart_product.id, :id => "cart_product_ids_#{cart_product.id}" %> </td>
+            <td><%= cart_product.user_id %></td>
+            <td><%= cart_product.product_id %></td>
+            <td><%= cart_product.quantity %></td>
+            <td><%= link_to 'Show', cart_product %></td>
+            <td><%= link_to 'Edit', edit_cart_product_path(cart_product) %></td>
+            <td><%= link_to 'Destroy', cart_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      <div><%= submit_tag 'Check Out' %></div>
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'Check Out', new_cart_product_path %>
+<%= link_to 'Check Out', new_cart_orders_orders_path %>

@@ -10,7 +10,7 @@ class Order < ActiveRecord::Base
 			attributes.except!( *excludes )
 		end
 		super attributes
-		set_attributes amount, product_id, current_user_id unless !attributes
+		set_attributes amount, product_id, current_user_id unless attributes == nil
 	end
 
 	def set_attributes amount, product_id, current_user_id
