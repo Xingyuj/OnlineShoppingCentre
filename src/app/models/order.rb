@@ -1,6 +1,15 @@
 class Order < ActiveRecord::Base
 	has_many :order_products
 
+	# return the order list according to the correct type
+	def self.show_order(type,page, current_user_id)
+		if type == 'purchase'
+			order("created_at DESC").where(buyer_id: current_user_id).paginate(page: page, per_page: 1)
+		elsif type == 'purchase'
+			order("created_at DESC").where(seller_id: current_user_id).paginate(page: page, per_page: 1)
+		end
+	end
+
 	def initialize attributes = nil
 		if attributes
 			amount = attributes["amount"]

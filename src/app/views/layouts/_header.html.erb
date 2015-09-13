@@ -42,10 +42,49 @@
     </nav>
   </div>
 </header>
+<div class = "navigation">
 <div class = "search">
   <%= form_tag products_path, :method => :get do %>
       <%= label_tag(:q, "Search for:") %>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Search", :name=>nil%>
   <% end %>
+</div>
+
+<div class = "product-navigation">
+  <ul class="nav nav-tabs">
+    <li class = "active"><%= link_to "Home", root_path %></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        Cloth <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+    <li><a href="#">Tops</a></li>
+    <li><a href="#">Bottoms</a></li>
+    <li><a href="#">OutWears</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        Book <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Textbooks</a></li>
+        <li><a href="#">Children's Books</a></li>
+        <li><a href="#">Novel</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        Snack <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Chips & Crips</a></li>
+        <li><a href="#">Cookies</a></li>
+        <li><a href="#">Jerky</a></li>
+        <li><a href="#">Nuts & Seeds</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
 </div>

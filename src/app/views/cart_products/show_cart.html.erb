@@ -28,5 +28,4 @@
 </table>
 
 <br>
-
-<%= link_to 'Check Out', new_cart_product_path %>
+<%=will_paginate(@cart_products, :prev_label=>'Previous', :next_label=>'Next', :separator=>" | ") %>
