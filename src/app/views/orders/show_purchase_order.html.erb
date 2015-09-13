@@ -31,4 +31,28 @@
     <% end %>
   </tbody>
 </table>
+
+<table class="table table-bordered table-striped" style = "text-align:center;">
+  <thead>
+  <tr style = "text-align:center;">
+    <th style = "text-align:center;">Name</th>
+    <th style = "text-align:center;">Quantity</th>
+    <th style = "text-align:center;">Price</th>
+    <th style = "text-align:center;">Type</th>
+    <th style = "text-align:center;">Go to Detail</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name ,product%></td>
+        <td><%= product.quantity %></td>
+        <td><%= product.price %></td>
+        <td><%= product.actable_type %></td>
+        <td><%= link_to 'detail', product %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
 <%=will_paginate(@products, :prev_label=>'Previous', :next_label=>'Next', :separator=>" | ") %>
