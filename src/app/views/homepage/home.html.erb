@@ -1,8 +1,7 @@
 <h1>Welcome to ebuy Shopping Center</h1>
 <div>
-<%= link_to "Sign in now!", new_user_session_path, class: "btn btn-default"%> </br></br></br>
 </div>
-<div align="center" style="width:300px; float:left"><%=link_to(image_tag("book.png", size: "150x150"), category_products_path(type: "book")) %></div>
-<div align="center" style="width:300px; float:left"><%=link_to(image_tag("cloth.png", size: "150x150"), category_products_path(type: "cloth")) %></div>
-<div align="center" style="width:300px; float:left"><%=link_to(image_tag("snack.jpg", size: "150x150"), category_products_path(type: "snack")) %></div>
+<div align="center" style="width:300px; float:left"><%=link_to(image_tag("book.png", size: "150x150"), category_products_products_path(type: "Book")) %></div>
+<div align="center" style="width:300px; float:left"><%=link_to(image_tag("cloth.png", size: "150x150"), category_products_products_path(type: "Cloth")) %></div>
+<div align="center" style="width:300px; float:left"><%=link_to(image_tag("snack.jpg", size: "150x150"), category_products_products_path(type: "Snack")) %></div>
 </br></br>
