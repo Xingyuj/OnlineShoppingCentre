@@ -55,6 +55,7 @@ class Order < ActiveRecord::Base
 		      	order = Order.new attrs
 		      	seller_orders[product.seller_id] = order
 		      end
+		      CartProduct.detroy(cart_product_id)
 	   		end
 	   		seller_orders.each do |seller, order|
 	   			if order.save
