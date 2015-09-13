@@ -29,30 +29,17 @@ class OrdersController < ApplicationController
   end
 
   def create_cart_orders
-    @attributes = {"current_user_id" => current_user.id}
     cart_order_params = params.permit(:name, :postcode, :address, :phone, :product_id, :amount, :current_user_id)
-    @attributes.merge! cart_order_params
-    flag = false
-    session[:selected_cart_products].each do |product|
-      cart_product = CartProduct.find product
-      @attributes["product_id"] = cart_product.product_id
-      @attributes["amount"] = cart_product.quantity
-      @order = Order.new @attributes
-      if @order.save
-        flag = true
-      else
-        flag = false
-      end
-    end
-    if flag
+    message = Order.create_cart_orders session[:selected_cart_products], current_user.id, cart_order_params
+    if message == "success"
       respond_to do |format|
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { render create_cart_orders_orders_path, notice: 'Orders was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       end
     else
       respond_to do |format|
         format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.json { render json: message, status: :unprocessable_entity }
       end
     end
   end

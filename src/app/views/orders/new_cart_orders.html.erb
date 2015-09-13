@@ -1,10 +1,14 @@
-<h1>This new cart orders</h1>
+<h2>Please Provide Receiver Information</h2>
 <tbody>
     <%= form_tag('/orders/create_cart_orders') do %>
-        <td><%= number_field_tag 'postcode' %></td>
-        <td><%= text_field_tag 'name' %></td>
-        <td><%= text_field_tag 'phone' %></td>
-        <td><%= text_field_tag 'address' %></td>
+        <td><%= label_tag 'postcode' %></td>
+        <td><%= number_field_tag 'postcode' %></td> </br>
+        <td><%= label_tag 'name' %></td>
+        <td><%= text_field_tag 'name' %></td> </br>
+        <td><%= label_tag 'phone' %></td>
+        <td><%= text_field_tag 'phone' %></td> </br>
+        <td><%= label_tag 'address' %></td>
+        <td><%= text_field_tag 'address' %></td> </br>
       <div><%= submit_tag 'Submit Order' %></div>
     <% end %>
   </tbody>

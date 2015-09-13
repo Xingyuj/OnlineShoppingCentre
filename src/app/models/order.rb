@@ -36,4 +36,35 @@ class Order < ActiveRecord::Base
 		product = Product.find @product_id
 		product.update_attributes(quantity: product.quantity-@amount.to_d)
 	end
+
+	def self.create_cart_orders cart_products, current_user_id, cart_order_params
+		seller_orders = {}
+		Order.transaction do
+			cart_products.each do |cart_product_id|
+		      cart_product = CartProduct.find cart_product_id
+		      product = Product.find cart_product.product_id
+	      	  product.update_attributes(quantity: product[:quantity]-cart_product[:quantity])
+		      if seller_orders.has_key? product.seller_id
+		      	attrs = {product_id: cart_product[:product_id], amount: cart_product[:quantity]}
+	   			order_product = OrderProduct.new attrs
+		      	seller_orders[product.seller_id].order_products << order_product
+		      else
+		      	attrs = {"product_id" => cart_product.product_id, "current_user_id" => current_user_id, "amount" => cart_product[:quantity]}
+		      	attrs.merge! cart_order_params
+		      	order = Order.new attrs
+		      	seller_orders[product.seller_id] = order
+		      end
+	   		end
+	   		seller_orders.each do |seller, order|
+	   			if order.save
+	   				@message = "success"
+	   			else
+	   				@message = "seller_id: " + seller + "'s order: " + order.to_s + "fail to generated!"
+	   			end
+	   		end
+   		end
+   		return @message
+	end
+
+	private :set_attributes
 end
