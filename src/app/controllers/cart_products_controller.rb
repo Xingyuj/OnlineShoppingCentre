@@ -12,7 +12,7 @@ class CartProductsController < ApplicationController
   end
 
   def show_cart
-    @cart_products = current_user.cart_products
+    @cart_products = CartProduct.show_cart(params[:page],current_user.id )
   end
 
   def new
