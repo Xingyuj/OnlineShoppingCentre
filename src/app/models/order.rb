@@ -4,9 +4,9 @@ class Order < ActiveRecord::Base
 	# return the order list according to the correct type
 	def self.show_order(type,page, current_user_id)
 		if type == 'purchase'
-			order("created_at DESC").where(buyer_id: current_user_id).paginate(page: page, per_page: 1)
+			order("created_at DESC").where(buyer_id: current_user_id).paginate(page: page, per_page: 8)
 		elsif type == 'purchase'
-			order("created_at DESC").where(seller_id: current_user_id).paginate(page: page, per_page: 1)
+			order("created_at DESC").where(seller_id: current_user_id).paginate(page: page, per_page: 8)
 		end
 	end
 
@@ -39,6 +39,7 @@ class Order < ActiveRecord::Base
 
 	def self.create_cart_orders cart_products, current_user_id, cart_order_params
 		seller_orders = {}
+		orders_generated = []
 		Order.transaction do
 			cart_products.each do |cart_product_id|
 		      cart_product = CartProduct.find cart_product_id
@@ -58,12 +59,13 @@ class Order < ActiveRecord::Base
 	   		seller_orders.each do |seller, order|
 	   			if order.save
 	   				@message = "success"
+	   				orders_generated << order.id
 	   			else
 	   				@message = "seller_id: " + seller + "'s order: " + order.to_s + "fail to generated!"
 	   			end
 	   		end
    		end
-   		return @message
+   		return @message=="success"? orders_generated : @message
 	end
 
 	private :set_attributes

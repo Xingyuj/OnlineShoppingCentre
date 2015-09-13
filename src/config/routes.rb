@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get :show_order
       post :new_cart_orders
       post :create_cart_orders
+      get :pay_for_orders
     end
 
     member do
