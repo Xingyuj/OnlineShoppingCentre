@@ -36,24 +36,26 @@ function getHrefId(href) {
 $(function() {
     // buy the product at once
     $('#buynow').click( function(){
+        product_id = getHrefId(href);
         var amount =document.getElementById("purchase_quantity");
         if(amount.value > amount.max) {
             alert("the purchased number cannot exceed the stock!")
         }
         else {
-            window.location.href='../orders/new?productId='+getHrefId(href)+'&amount='+amount.value;
+            window.location.href='../orders/new?productId='+product_id+'&amount='+amount.value;
         }
 
     });
 
     // put the product in the cart
     $('#putcart').click( function(){
+        product_id = getHrefId(href);
         var amount = document.getElementById("purchase_quantity");
         if(amount.value > amount.max){
             alert("the purchased number cannot exceed the stock!")
         }
         else {
-            window.location.href = '../cart_products/new?productId='+getHrefId(href)+'&amount='+amount.value;
+            window.location.href = '../cart_products/new?productId='+product_id+'&amount='+amount.value;
         }
     });
 });

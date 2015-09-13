@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get :purchase
       get :check_out
       get :pay
+      delete :destroy
     end
   end
 

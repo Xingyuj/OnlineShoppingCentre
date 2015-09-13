@@ -1,55 +1,34 @@
-<h1> This is purchase orders </h1>
+
 <h1>Listing Orders</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Buyer</th>
-      <th>Seller</th>
-      <th>Status</th>
-      <th>Total price</th>
-      <th>Postcode</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.buyer_id %></td>
-        <td><%= order.seller_id %></td>
-        <td><%= order.status %></td>
-        <td><%= order.total_price %></td>
-        <td><%= order.postcode %></td>
-        <td><%= order.address %></td>
-        <td><%= order.phone %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <table class="table table-bordered table-striped" style = "text-align:center;">
   <thead>
   <tr style = "text-align:center;">
-    <th style = "text-align:center;">Name</th>
-    <th style = "text-align:center;">Quantity</th>
-    <th style = "text-align:center;">Price</th>
-    <th style = "text-align:center;">Type</th>
-    <th style = "text-align:center;">Go to Detail</th>
+    <th style = "text-align:center;">Id</th>
+    <th style = "text-align:center;">Status</th>
+    <th style = "text-align:center;">Total price</th>
+    <th style = "text-align:center;">Detail</th>
+    <th style = "text-align:center;">Delete</th>
   </tr>
   </thead>
   <tbody>
-  <% @products.each do |product| %>
+  <% @orders.each do |order| %>
       <tr>
-        <td><%= link_to product.name ,product%></td>
-        <td><%= product.quantity %></td>
-        <td><%= product.price %></td>
-        <td><%= product.actable_type %></td>
-        <td><%= link_to 'detail', product %></td>
+        <td><%= link_to order.id, order%></td>
+        <td><%= order.status %></td>
+        <td><%= order.total_price %></td>
+        <td>
+          <%= button_to "Detail", order_path(order), method: :get, class: "btn btn-primary" %>
+        </td>
+
+        <td>
+          <%= button_to "Pay", pay_order_path(order), method: :get, class: "btn btn-primary" %>
+        </td>
+        <td>
+        <%= button_to "Delete", order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+      </td>
       </tr>
   <% end %>
   </tbody>
