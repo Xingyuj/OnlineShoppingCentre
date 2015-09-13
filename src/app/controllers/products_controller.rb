@@ -8,6 +8,11 @@ class ProductsController < ApplicationController
     @products = Product.search(params[:search], params[:page])
   end
 
+  def category_products
+    @products = Product.category_products(params[:type], params[:category], params[:page])
+    render :index
+  end
+
   # GET /products/1
   # GET /products/1.json
   def show
