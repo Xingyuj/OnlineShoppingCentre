@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   resources :orders do
     collection do
       get :show_order
+      post :new_cart_orders
+      post :create_cart_orders
     end
+
     member do
       get :purchase
       get :check_out
