@@ -16,6 +16,11 @@ class Product < ActiveRecord::Base
 	end
 
 	def self.category_products(type, category, page)
-		order("created_at DESC").where(actable_type: type, category: category).paginate(page: page, per_page: 8)
+		if type && category
+			@products = order("created_at DESC").where(actable_type: type, category: category).paginate(page: page, per_page: 8)
+		elsif type
+			@products = order("created_at DESC").where(actable_type: type).paginate(page: page, per_page: 8)
+		end
+		return @products
 	end
 end

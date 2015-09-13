@@ -84,6 +84,7 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     respond_to do |format|
       if @order.save
+        @order.decrease_correspoding_product
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
