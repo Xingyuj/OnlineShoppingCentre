@@ -1,1 +1,9 @@
 <h1> this is create cart orders</h1>
+<p id="notice"><%= notice %></p>
+Card number: <input type="text" name="lname"><br>
+Expired Date: <input type="text" name="lname"><br>
+CSV: <input type="text" name="lname"><br>
+First name: <input type="text" name="lname"><br>
+Last name: <input type="text" name="lname"><br>
+
+<%= button_to "Pay", { action: "pay_for_orders"}, method: :get, data: { confirm: "Are you sure?" } %>

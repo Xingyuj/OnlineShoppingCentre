@@ -29,35 +29,29 @@ class OrdersController < ApplicationController
   end
 
   def create_cart_orders
-    @attributes = {"current_user_id" => current_user.id}
     cart_order_params = params.permit(:name, :postcode, :address, :phone, :product_id, :amount, :current_user_id)
-    @attributes.merge! cart_order_params
-    flag = false
-    session[:selected_cart_products].each do |product|
-      cart_product = CartProduct.find product
-      @attributes["product_id"] = cart_product.product_id
-      @attributes["amount"] = cart_product.quantity
-      @order = Order.new @attributes
-      if @order.save
-        flag = true
-      else
-        flag = false
-      end
-    end
-    if flag
+    message = Order.create_cart_orders session[:selected_cart_products], current_user.id, cart_order_params
+    if message.instance_of? Array
+      session[:orders_generated] = message
       respond_to do |format|
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
+        format.html { render create_cart_orders_orders_path, notice: 'Orders was successfully created.' }
       end
     else
       respond_to do |format|
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.html { render show_cart_cart_products_path, notice: message }
       end
     end
   end
 
   def check_out
+  end
+
+  def pay_for_orders
+    orders_selected = session[:orders_generated]
+    orders_selected.each do |order|
+      order_generated = Order.find order
+      order_generated.update_attribute(:status, "Paid")
+    end
   end
 
   def pay
@@ -68,6 +62,7 @@ class OrdersController < ApplicationController
     @orders = Order.show_order(params[:type], params[:page],current_user.id)
     type = params["type"]
     if type.to_s == 'purchase'
+      puts "<><><><><><><><>" + @orders.inspect
       render :show_purchase_order
       return
     elsif type == "sell"
