@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  
   resources :products do
     collection do 
       get :choose_new_type
       get :new_books
       get :new_cloth
       get :new_snacks
+      get :category
     end
 
     member do

@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except:[:index, :show, :category]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
- skip_before_filter :verify_authenticity_token  
+  skip_before_filter :verify_authenticity_token  
 
   # GET /products
   # GET /products.json
@@ -8,6 +9,9 @@ class ProductsController < ApplicationController
     @products = Product.search(params[:search], params[:page])
   end
 
+  def category
+    @products = Product.where(params[:type])
+  end
   # GET /products/1
   # GET /products/1.json
   def show
