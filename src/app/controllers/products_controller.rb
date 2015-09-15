@@ -6,6 +6,8 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.search(params[:search], params[:page])
+    @image_path = @product.images.first.path.to_s
+    @image_path.slice!(0)
   end
 
   def category_products
