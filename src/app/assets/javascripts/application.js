@@ -42,7 +42,7 @@ $(function() {
             alert("the purchased number cannot exceed the stock!")
         }
         else {
-            window.location.href='../orders/new?productId='+product_id+'&amount='+amount.value;
+            window.location.href='/orders/new?productId='+product_id+'&amount='+amount.value;
         }
 
     });
@@ -56,7 +56,7 @@ $(function() {
             alert("the purchased number cannot exceed the stock!")
         }
         else {
-            window.location.href = '../cart_products/new?productId='+product_id+'&amount='+amount.value;
+            window.location.href = '/cart_products/new?productId='+product_id+'&amount='+amount.value;
         }
     });
 });

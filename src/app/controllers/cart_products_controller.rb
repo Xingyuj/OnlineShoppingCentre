@@ -26,10 +26,13 @@ class CartProductsController < ApplicationController
       redirect_to @product
     else
       if(CartProduct.ifSameProductExist(params["productId"], current_user.id))
-        existedCartProduct = ifSameProductExist(params["productId"],current_user.id)
-        existedCartProduct.quantity += params["amount"]
+        existedCartProduct = CartProduct.ifSameProductExist(params["productId"],current_user.id)
+        existedCartProduct.quantity += params["amount"].to_i
         existedCartProduct.save!
+        flash[:notice] = 'Cart product was successfully created.'
+        redirect_to  @cart_product
       else
+        puts("22222222222222*****************************************************")
       @cart_product.save
         flash[:notice] = 'Cart product was successfully created.'
         redirect_to  @cart_product
@@ -78,6 +81,7 @@ class CartProductsController < ApplicationController
     @cart_product = CartProduct.find(params[:id])
 
     @cart_product.destroy
+    flash[:notice] = 'The product has been deleted from the cart.'
     redirect_to :controller => 'cart_products', :action => 'show_cart'
   end
 

@@ -23,7 +23,7 @@ class CartProduct < ActiveRecord::Base
 	def self.ifSameProductExist (productId, current_user_id)
 		@cart_products = CartProduct.where(user_id: current_user_id)
 		@cart_products.each do |cart_product|
-			if cart_product.product_id == productId
+			if cart_product.product_id.to_s == productId
 				return cart_product
 			end
 		end

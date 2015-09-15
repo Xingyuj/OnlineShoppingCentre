@@ -16,10 +16,13 @@
 </dl>
 <div class="btn-toolbar" role="toolbar" >
   <div class="btn-group" role="group" aria-label="Buy now">
-    <%= button_to "Buy now", id = "buynow", class: "btn btn-success" %>
-  </div>
-  <div class="btn-group" role="group" aria-label="Put in cart">
-    <%= button_to "Put in cart", id = "putcart", class: "btn btn-primary"%>
-  </div>
+    <button type="button" class="btn btn-success" id = "buynow">Buy now</button>
 </div>
-<%= link_to 'Back', products_path, class: "btn btn-info"%>
+<div class="btn-group" role="group" aria-label="Put in cart">
+    <button type="button" class="btn btn-primary" id = "putcart">Put in cart</button>
+</div>
+  </div>
+<div>
+  <%= link_to 'Back', products_path, class: "btn btn-info"%>
+</div>
+
