@@ -1,5 +1,7 @@
 <p id="notice" xmlns:class="http://www.w3.org/1999/xhtml"><%= notice %></p>
 
+<div><%= image_tag @image_path %></div>
+<div>
 <dl class="dl-horizontal">
   <dt> Title:</dt>
   <dd><%= @product.title %></dd>
@@ -9,11 +11,13 @@
   <dd><%= @product.price %></dd>
   <dt> Stock:</dt>
   <dd><%= @product.quantity %></dd>
+  <%= @product.specific.attributes %>
   <dt> Description:</dt>
   <dd><%= @product.description %></dd>
   <dt> Purchase Num:</dt>
   <dd><%= number_field(:purchase, :quantity, in: 1..@product.quantity, step: 1, value: 1, class: "span3") %></dd>
 </dl>
+</div>
 <div class="btn-toolbar" role="toolbar" >
   <div class="btn-group" role="group" aria-label="Buy now">
     <button type="button" class="btn btn-success" id = "buynow">Buy now</button>

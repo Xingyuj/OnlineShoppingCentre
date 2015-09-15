@@ -16,6 +16,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @image_path = @product.images.first.path.to_s
+    @image_path.slice!(0)
   end
 
   def choose_new_type
