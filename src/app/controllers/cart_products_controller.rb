@@ -9,6 +9,7 @@ class CartProductsController < ApplicationController
   # GET /cart_products/1
   # GET /cart_products/1.json
   def show
+    @product = Product.find @cart_product.product_id
   end
 
   def show_cart
@@ -28,7 +29,7 @@ class CartProductsController < ApplicationController
       if(CartProduct.ifSameProductExist(params["productId"], current_user.id))
         existedCartProduct = CartProduct.ifSameProductExist(params["productId"],current_user.id)
         existedCartProduct.quantity += params["amount"].to_i
-        existedCartProduct.save!
+        existedCartProduct.update_attributes
         flash[:notice] = 'Cart product was successfully created.'
         redirect_to  @cart_product
       else
