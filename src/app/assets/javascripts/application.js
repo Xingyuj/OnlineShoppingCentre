@@ -18,7 +18,6 @@
 //= require bootstrap-sprockets
 
 // get the id of the product
-var href = window.location.href;
 function getHrefId(href) {
     var id = "";
     var start = 0;
@@ -36,6 +35,7 @@ function getHrefId(href) {
 $(function() {
     // buy the product at once
     $('#buynow').click( function(){
+        var href = window.location.href;
         product_id = getHrefId(href);
         var amount =document.getElementById("purchase_quantity");
         if(amount.value > amount.max) {
@@ -49,6 +49,7 @@ $(function() {
 
     // put the product in the cart
     $('#putcart').click( function(){
+        var href = window.location.href;
         product_id = getHrefId(href);
         var amount = document.getElementById("purchase_quantity");
         if(amount.value > amount.max){
