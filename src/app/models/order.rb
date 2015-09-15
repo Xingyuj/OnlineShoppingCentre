@@ -10,6 +10,11 @@ class Order < ActiveRecord::Base
 		end
 	end
 
+=begin
+Overwrite constructor of order calling private function set_attributes, enable generating OrderProduct for order.
+@param attributes[optional]
+=end
+
 	def initialize attributes = nil
 		if attributes
 			@amount = attributes["amount"]
@@ -22,6 +27,9 @@ class Order < ActiveRecord::Base
 		set_attributes unless attributes == nil
 	end
 
+=begin
+Private function set_attributes, called by initialise. create OrderProduct for generated order and set other attributes
+=end
 	def set_attributes
 		product = Product.find @product_id
 		total_price = @amount.to_d * product.price.to_d
@@ -32,11 +40,19 @@ class Order < ActiveRecord::Base
    		self.order_products << order_product
 	end
 
+=begin
+Used by “buy it now” feature, to decrease quantity of product after corresponding order is created.
+=end
 	def decrease_correspoding_product
 		product = Product.find @product_id
 		product.update_attributes(quantity: product.quantity-@amount.to_d)
 	end
 
+=begin
+Static method create_cart_orders, used for checkout from cart. This method using transaction to ensure 
+orders of every selected product successfully created. Otherwise, rollback all operations and return error information.
+@param cart_products, current_user_id, cart_order_params
+=end
 	def self.create_cart_orders cart_products, current_user_id, cart_order_params
 		seller_orders = {}
 		orders_generated = []
@@ -55,6 +71,7 @@ class Order < ActiveRecord::Base
 		      	order = Order.new attrs
 		      	seller_orders[product.seller_id] = order
 		      end
+		      CartProduct.detroy(cart_product_id)
 	   		end
 	   		seller_orders.each do |seller, order|
 	   			if order.save
