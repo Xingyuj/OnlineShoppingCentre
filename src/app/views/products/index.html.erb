@@ -6,6 +6,7 @@
 <table class="table table-bordered table-striped" style = "text-align:center;">
   <thead>
   <tr style = "text-align:center;">
+    <th style = "text-align:center;">Title</th>
     <th style = "text-align:center;">Name</th>
     <th style = "text-align:center;">Quantity</th>
     <th style = "text-align:center;">Price</th>
@@ -16,6 +17,7 @@
   <tbody>
   <% @products.each do |product| %>
       <tr>
+        <td><%= link_to product.title ,product%></td>
         <td><%= link_to product.name ,product%></td>
         <td><%= product.quantity %></td>
         <td><%= product.price %></td>

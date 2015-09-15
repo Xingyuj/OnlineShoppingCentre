@@ -1,24 +1,23 @@
-
 <h1>Listing Orders</h1>
-
-
-
 <table class="table table-bordered table-striped" style = "text-align:center;">
   <thead>
   <tr style = "text-align:center;">
     <th style = "text-align:center;">Id</th>
     <th style = "text-align:center;">Status</th>
     <th style = "text-align:center;">Total price</th>
+    <th style = "text-align:center;">created_at</th>
     <th style = "text-align:center;">Detail</th>
+    <th style = "text-align:center;">Pay</th>
     <th style = "text-align:center;">Delete</th>
   </tr>
   </thead>
   <tbody>
   <% @orders.each do |order| %>
-      <tr>
+      <tr style = "text-align:center;">
         <td><%= link_to order.id, order%></td>
         <td><%= order.status %></td>
         <td><%= order.total_price %></td>
+        <td><%= order.created_at.to_formatted_s(:long)  %></td>
         <td>
           <%= button_to "Detail", order_path(order), method: :get, class: "btn btn-primary" %>
         </td>
@@ -33,5 +32,4 @@
   <% end %>
   </tbody>
 </table>
-
-<%=will_paginate(@products, :prev_label=>'Previous', :next_label=>'Next', :separator=>" | ") %>
+<%=will_paginate(@products, :prev_label=>'Previous', :next_label=>'Next', :separator=>" | " ) %>

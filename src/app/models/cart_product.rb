@@ -3,7 +3,31 @@ class CartProduct < ActiveRecord::Base
 
 	# return products in the cart of the current user
 	def self.show_cart(page, current_user_id)
-			order("created_at DESC").where(user_id: current_user_id).all.paginate(page: page, per_page: 5)
+			@cart_products = order("created_at DESC").where(user_id: current_user_id)
+			@show_cart_list = []
+				@cart_products.each do |cart_product|
+					show_cart_item = {}
+					product = Product.find cart_product.product_id
+					show_cart_item[:id] = cart_product.id
+					show_cart_item[:title] = product.title
+					show_cart_item[:price] = product.price
+					show_cart_item[:total] = product.price * cart_product.quantity
+					show_cart_item[:quantity] = cart_product.quantity
+					show_cart_item[:stock] = product.quantity
+					show_cart_item[:created_at] = cart_product.created_at
+					@show_cart_list << show_cart_item
+				end
+			@show_cart_list.paginate(page: page, per_page: 5)
+	end
+
+	def self.ifSameProductExist (productId, current_user_id)
+		@cart_products = CartProduct.where(user_id: current_user_id)
+		@cart_products.each do |cart_product|
+			if cart_product.product_id == productId
+				return cart_product
+			end
+		end
+		return nil
 	end
 end
 

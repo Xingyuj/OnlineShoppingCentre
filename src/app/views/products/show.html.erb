@@ -1,10 +1,25 @@
-<p id="notice"><%= notice %></p>
-<% @product.specific.attributes.each_pair do |name, value| %>
-    <%= name %>: <%= value %> <br>
-  <% end %>
+<p id="notice" xmlns:class="http://www.w3.org/1999/xhtml"><%= notice %></p>
 
-Amount: <%= number_field(:purchase, :quantity, in: 1..@product.quantity, step: 1) %>
-<a id="buynow" >Buy it Now</a>
-<a id="putcart"  >Put in Cart</a>
-
-<%= link_to 'Back', products_path %>
+<dl class="dl-horizontal">
+  <dt> Title:</dt>
+  <dd><%= @product.title %></dd>
+  <dt> Name:</dt>
+  <dd><%= @product.name %></dd>
+  <dt> Price:</dt>
+  <dd><%= @product.price %></dd>
+  <dt> Stock:</dt>
+  <dd><%= @product.quantity %></dd>
+  <dt> Description:</dt>
+  <dd><%= @product.description %></dd>
+  <dt> Purchase Num:</dt>
+  <dd><%= number_field(:purchase, :quantity, in: 1..@product.quantity, step: 1, value: 1, class: "span3") %></dd>
+</dl>
+<div class="btn-toolbar" role="toolbar" >
+  <div class="btn-group" role="group" aria-label="Buy now">
+    <%= button_to "Buy now", id = "buynow", class: "btn btn-success" %>
+  </div>
+  <div class="btn-group" role="group" aria-label="Put in cart">
+    <%= button_to "Put in cart", id = "putcart", class: "btn btn-primary"%>
+  </div>
+</div>
+<%= link_to 'Back', products_path, class: "btn btn-info"%>

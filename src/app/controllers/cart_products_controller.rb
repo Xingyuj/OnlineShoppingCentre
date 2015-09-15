@@ -12,9 +12,10 @@ class CartProductsController < ApplicationController
   end
 
   def show_cart
-    @cart_products = CartProduct.show_cart(params[:page],current_user.id )
+    @show_cart_list = CartProduct.show_cart(params[:page], current_user.id )
   end
 
+  # put a new product in the cart
   def new
     @product_params = {quantity: params["amount"], product_id: params["productId"]}
     @cart_product = CartProduct.new @product_params
@@ -22,13 +23,16 @@ class CartProductsController < ApplicationController
     @product = Product.find params["productId"]
     if @cart_product.quantity > @product.quantity
       flash[:notice] = 'Sorry, the quantity of the product insufficient.'
-      redirect_to @produt
+      redirect_to @product
     else
-      if @cart_product.save
+      if(CartProduct.ifSameProductExist(params["productId"], current_user.id))
+        existedCartProduct = ifSameProductExist(params["productId"],current_user.id)
+        existedCartProduct.quantity += params["amount"]
+        existedCartProduct.save!
+      else
+      @cart_product.save
         flash[:notice] = 'Cart product was successfully created.'
         redirect_to  @cart_product
-      else
-        redirect_to 500.html
       end
     end
   end
@@ -70,11 +74,11 @@ class CartProductsController < ApplicationController
   # DELETE /cart_products/1
   # DELETE /cart_products/1.json
   def destroy
+
+    @cart_product = CartProduct.find(params[:id])
+
     @cart_product.destroy
-    respond_to do |format|
-      format.html { redirect_to cart_products_url, notice: 'Cart product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to :controller => 'cart_products', :action => 'show_cart'
   end
 
   private

@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     collection do
       get :show_cart
     end
+    member do
+      get :destory
+    end
   end
 
   resources :orders do

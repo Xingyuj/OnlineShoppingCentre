@@ -1,40 +1,41 @@
-<h1> This is cart </h1>
+<h1>Listing Cart Products</h1>
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Cart Products</h1>
-
-<table>
+<%= form_tag('/orders/new_cart_orders') do %>
+<table class="table table-bordered table-striped" style = "text-align:center;">
   <thead>
-    <tr>
-      <th>Cart</th>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr style = "text-align:center;">
+    <th style= "width:30px"></th>
+    <th style = "text-align:center;">Title</th>
+    <th style = "text-align:center;">unit price</th>
+    <th style = "text-align:center;">Quantity</th>
+    <th style = "text-align:center;">Total price</th>
+    <th style = "text-align:center;">Delete</th>
+  </tr>
   </thead>
-  
   <tbody>
-    <%= form_tag('/orders/new_cart_orders') do %>
-        <% @cart_products.each do |cart_product| %>
+
+      <% @show_cart_list.each do |show_cart_item| %>
           <tr>
-             <td><%= check_box_tag "cart_product_ids[]", cart_product.id, :id => "cart_product_ids_#{cart_product.id}" %> </td>
-            <td><%= cart_product.user_id %></td>
-            <td><%= cart_product.product_id %></td>
-            <td><%= cart_product.quantity %></td>
-            <td><%= link_to 'Show', cart_product %></td>
-            <td><%= link_to 'Edit', edit_cart_product_path(cart_product) %></td>
-            <td><%= link_to 'Destroy', cart_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= check_box_tag "cart_product_ids[]", show_cart_item[:id], :id => "cart_product_ids_#{show_cart_item[:id]}" %> </td>
+            <td><%= show_cart_item[:title] %></td>
+            <td><%= show_cart_item[:price] %></td>
+            <td><%= number_field(:purchase, :quantity, in: 1..show_cart_item[:stock], step: 1, value: show_cart_item[:quantity]) %></td>
+            <td><%= show_cart_item[:total] %></td>
+            <td><%= link_to 'Destroy', "/cart_products/#{show_cart_item[:id]}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %></td>
           </tr>
-        <% end %>
-      <div><%= submit_tag 'Check Out' %></div>
-    <% end %>
+      <% end %>
+
   </tbody>
 </table>
+      <div>
+        <%= submit_tag 'Check Out' , class: "btn btn-primary" %>
+      </div>
+  <% end %>
 
 <br>
 
-<%=will_paginate(@cart_products, :prev_label=>'Previous', :next_label=>'Next', :separator=>" | ") %>
 
+<%=will_paginate(@show_cart_list, :prev_label=>'Previous', :next_label=>'Next', :separator=>" | ") %>
 
-<%= link_to 'Check Out', new_cart_orders_orders_path %>
 
