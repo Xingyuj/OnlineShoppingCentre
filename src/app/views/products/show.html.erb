@@ -3,17 +3,16 @@
 <div><%= image_tag @image_path %></div>
 <div>
 <dl class="dl-horizontal">
-  <dt> Title:</dt>
-  <dd><%= @product.title %></dd>
-  <dt> Name:</dt>
-  <dd><%= @product.name %></dd>
-  <dt> Price:</dt>
-  <dd><%= @product.price %></dd>
-  <dt> Stock:</dt>
-  <dd><%= @product.quantity %></dd>
-  <%= @product.specific.attributes %>
-  <dt> Description:</dt>
-  <dd><%= @product.description %></dd>
+  <% @product.specific.attributes.each_pair do |name, value| %>
+
+    <% if name != "created_at" && name != "updated_at" && name != "id" && name != "seller_id" && name != "actable_id" && name != "actable_type" && name != "lock_version" %>
+    <dt><%= name %></dt>
+    <dd><%= value %></dd>
+    <% end %>
+
+  <% end %>
+  
+
   <dt> Purchase Num:</dt>
   <dd><%= number_field(:purchase, :quantity, in: 1..@product.quantity, step: 1, value: 1, class: "span3") %></dd>
 </dl>
