@@ -22,7 +22,7 @@
             <td><%= show_cart_item[:price] %></td>
             <td><%= number_field(:purchase, :quantity, in: 1..show_cart_item[:stock], step: 1, value: show_cart_item[:quantity]) %></td>
             <td><%= show_cart_item[:total] %></td>
-            <td><%= link_to 'Destroy', "/cart_products/#{show_cart_item[:id]}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %></td>
+            <td><%= link_to 'Delete', "/cart_products/#{show_cart_item[:id]}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %></td>
           </tr>
       <% end %>
 
