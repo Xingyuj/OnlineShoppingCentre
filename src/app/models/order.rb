@@ -1,5 +1,7 @@
 class Order < ActiveRecord::Base
 	has_many :order_products
+	attr_reader :product_id, :amount
+
 
 	# return the order list according to the correct type
 	def self.show_order(type, page, current_user_id)
@@ -45,7 +47,7 @@ Used by “buy it now” feature, to decrease quantity of product after correspo
 =end
 	def decrease_correspoding_product
 		product = Product.find @product_id
-		product.update_attributes(quantity: product.quantity-@amount.to_d)
+		product.update_attributes!(quantity: product.quantity-@amount.to_i)
 	end
 
 =begin
@@ -74,7 +76,7 @@ orders of every selected product successfully created. Otherwise, rollback all o
 		      CartProduct.detroy(cart_product_id)
 	   		end
 	   		seller_orders.each do |seller, order|
-	   			if order.save
+	   			if order.save_order
 	   				@message = "success"
 	   				orders_generated << order.id
 	   			else
@@ -84,6 +86,34 @@ orders of every selected product successfully created. Otherwise, rollback all o
    		end
    		return @message=="success"? orders_generated : @message
 	end
+
+=begin
+save_order
+Using transaction to ensure failure order generation will not influence quantity of product
+and using optimistic locking to ensure concurrence when multiple user attempt to change quantity of one product at the same time.
+=end
+	def save_order
+	    product = Product.find @product_id
+	    product_quantity = product[:quantity]
+	    signal = false
+	    quantity_runout = false
+	    Order.transaction do
+	      self.save!
+	      until quantity_runout || signal==true do
+	        begin
+	          decrease_correspoding_product
+	        rescue ActiveRecord::StaleObjectError
+	          quantity_runout = true unless product_quantity >= @amount
+	          next
+	        else
+	          signal = true
+	          break
+	        end
+	      end 
+	    end
+	    return signal
+	end
+
 
 	private :set_attributes
 end

@@ -19,6 +19,25 @@ class OrdersController < ApplicationController
     render :new
   end
 
+  # POST /orders
+  # POST /orders.json
+  def create
+    attributes = {"current_user_id" => current_user.id}
+    request_params = order_params
+    attributes.merge! request_params
+    @order = Order.new(attributes)
+    signal = @order.save_order
+    respond_to do |format|
+      if signal
+        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :new }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /orders/1/edit
   def edit
   end
@@ -56,6 +75,7 @@ class OrdersController < ApplicationController
 
   def pay
     @order.update_attribute(:status, "Paid")
+    render :pay_for_orders
   end
 
   def show_order
@@ -68,24 +88,6 @@ class OrdersController < ApplicationController
     elsif type == "sell"
       render :show_sell_order
       return
-    end
-  end
-
-  # POST /orders
-  # POST /orders.json
-  def create
-    attributes = {"current_user_id" => current_user.id}
-    attributes.merge! order_params
-    @order = Order.new(attributes)
-    respond_to do |format|
-      if @order.save
-        @order.decrease_correspoding_product
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
     end
   end
 

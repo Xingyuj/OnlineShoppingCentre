@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913060336) do
+ActiveRecord::Schema.define(version: 20150915120222) do
 
   create_table "books", force: :cascade do |t|
     t.string   "publisher"
@@ -67,10 +67,11 @@ ActiveRecord::Schema.define(version: 20150913060336) do
     t.string   "description"
     t.integer  "actable_id"
     t.string   "actable_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "title"
     t.string   "category"
+    t.integer  "lock_version", default: 0
   end
 
   create_table "snacks", force: :cascade do |t|
