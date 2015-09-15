@@ -38,7 +38,8 @@ $(function() {
         var href = window.location.href;
         product_id = getHrefId(href);
         var amount =document.getElementById("purchase_quantity");
-        if(amount.value > amount.max) {
+
+        if(amount.value.to_i > amount.max.to_i) {
             alert("the purchased number cannot exceed the stock!")
         }
         else {
@@ -52,7 +53,7 @@ $(function() {
         var href = window.location.href;
         product_id = getHrefId(href);
         var amount = document.getElementById("purchase_quantity");
-        if(amount.value > amount.max){
+        if(amount.value.to_i > amount.max.to_i){
             alert("the purchased number cannot exceed the stock!")
         }
         else {
