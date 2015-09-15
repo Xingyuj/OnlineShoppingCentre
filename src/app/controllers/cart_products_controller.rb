@@ -18,26 +18,33 @@ class CartProductsController < ApplicationController
 
   # put a new product in the cart
   def new
-    @product_params = {quantity: params["amount"], product_id: params["productId"]}
-    @cart_product = CartProduct.new @product_params
-    current_user.cart_products << @cart_product
+    request_amount = params["amount"].to_i
     @product = Product.find params["productId"]
-    if @cart_product.quantity > @product.quantity
-      flash[:notice] = 'Sorry, the quantity of the product insufficient.'
-      redirect_to @product
-    else
-      if(CartProduct.ifSameProductExist(params["productId"], current_user.id))
-        existedCartProduct = CartProduct.ifSameProductExist(params["productId"],current_user.id)
-        existedCartProduct.quantity += params["amount"].to_i
-        existedCartProduct.update_attributes
-        flash[:notice] = 'Cart product was successfully created.'
-        redirect_to  @cart_product
-      else
-        puts("22222222222222*****************************************************")
-      @cart_product.save
-        flash[:notice] = 'Cart product was successfully created.'
-        redirect_to  @cart_product
+    product_quantity = @product.quantity
+
+    if(CartProduct.ifSameProductExist(params["productId"], current_user.id))
+      existedCartProduct = CartProduct.ifSameProductExist(params["productId"],current_user.id)
+      if existedCartProduct.quantity+request_amount > product_quantity
+        flash[:notice] = 'Sorry, the quantity of the product insufficient.'
+        redirect_to @product
       end
+      newquantity = existedCartProduct.quantity + request_amount
+      existedCartProduct.update_attributes!(quantity: newquantity)
+      # existedCartProduct.quantity += params["amount"].to_i
+      # existedCartProduct.save!
+      flash[:notice] = 'Cart product was successfully created.'
+      redirect_to  existedCartProduct
+    else
+      if request_amount > product_quantity
+        flash[:notice] = 'Sorry, the quantity of the product insufficient.'
+        redirect_to @product
+      end
+      @product_params = {quantity: params["amount"], product_id: params["productId"]}
+      @cart_product = CartProduct.new @product_params
+      current_user.cart_products << @cart_product
+      @cart_product.save!
+      flash[:notice] = 'Cart product was successfully created.'
+      redirect_to  @cart_product
     end
   end
 
