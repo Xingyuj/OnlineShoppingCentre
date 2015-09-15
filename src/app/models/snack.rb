@@ -1,3 +1,3 @@
 class Snack < ActiveRecord::Base
-	acts_as :prodcut
+	acts_as :product
 end

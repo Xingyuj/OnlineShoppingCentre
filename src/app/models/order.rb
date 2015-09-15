@@ -64,7 +64,7 @@ orders of every selected product successfully created. Otherwise, rollback all o
 		      product = Product.find cart_product.product_id
 	      	  product.update_attributes(quantity: product[:quantity]-cart_product[:quantity])
 		      if seller_orders.has_key? product.seller_id
-		      	attrs = {product_id: cart_product[:product_id], amount: cart_product[:quantity]}
+		      	attrs = {product_id: cart_product[:product_id], quantity: cart_product[:quantity]}
 	   			order_product = OrderProduct.new attrs
 		      	seller_orders[product.seller_id].order_products << order_product
 		      else
@@ -73,7 +73,7 @@ orders of every selected product successfully created. Otherwise, rollback all o
 		      	order = Order.new attrs
 		      	seller_orders[product.seller_id] = order
 		      end
-		      CartProduct.detroy(cart_product_id)
+		      CartProduct.destroy(cart_product_id)
 	   		end
 	   		seller_orders.each do |seller, order|
 	   			if order.save_order
