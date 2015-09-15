@@ -76,6 +76,12 @@ orders of every selected product successfully created. Otherwise, rollback all o
 		      CartProduct.destroy(cart_product_id)
 	   		end
 	   		seller_orders.each do |seller, order|
+   				total_price = 0
+	   			order.order_products.each do |order_product|
+	   				product = Product.find order_product.product_id
+	   				total_price += product.price*order_product.quantity
+	   			end
+	   			order.total_price = total_price
 	   			if order.save_order
 	   				@message = "success"
 	   				orders_generated << order.id
