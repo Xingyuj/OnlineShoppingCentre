@@ -11,7 +11,7 @@
 </dl>
 <div class="btn-toolbar" role="toolbar" >
   <div class="btn-group" role="group" aria-label="Checkout">
-    <%= link_to 'Check out', '/orders/new?productId='+ @product.id + '&amount='+ @cart_product.quantity, class: "btn btn-info"%>
+    <%= link_to 'Check out', '/orders/new?productId='+ @product.id.to_s + '&amount='+ @cart_product.quantity.to_s, class: "btn btn-info"%>
   </div>
   <div class="btn-group" role="group" aria-label="Back">
     <%= link_to 'Back', @product, class: "btn btn-info"%>
