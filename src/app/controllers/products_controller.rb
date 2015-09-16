@@ -1,14 +1,13 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except:[:index, :show, :category_products]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
- skip_before_filter :verify_authenticity_token  
+  skip_before_filter :verify_authenticity_token  
 
   # GET /products
   # GET /products.json
   # return the products list
   def index
     @products = Product.search(params[:search], params[:page])
-    @image_path = @product.images.first.path.to_s
-    @image_path.slice!(0)
   end
 
   # return the products of one category of one type
