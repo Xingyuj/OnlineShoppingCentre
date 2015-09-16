@@ -12,6 +12,7 @@ class CartProductsController < ApplicationController
     @product = Product.find @cart_product.product_id
   end
 
+  # show all products in the cart of the current user
   def show_cart
     @show_cart_list = CartProduct.show_cart(params[:page], current_user.id )
   end
@@ -71,6 +72,9 @@ class CartProductsController < ApplicationController
   # PATCH/PUT /cart_products/1
   # PATCH/PUT /cart_products/1.json
   def update
+    request_amount = params["amount"].to_i
+    @product = Product.find params["productId"]
+    product_quantity = @product.quantity
     respond_to do |format|
       if @cart_product.update(cart_product_params)
         format.html { redirect_to @cart_product, notice: 'Cart product was successfully updated.' }
@@ -84,6 +88,7 @@ class CartProductsController < ApplicationController
 
   # DELETE /cart_products/1
   # DELETE /cart_products/1.json
+  # delete one product from the cart
   def destroy
 
     @cart_product = CartProduct.find(params[:id])

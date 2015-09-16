@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/new
+  # create a new order
   def new
     @order = Order.new
     @product_params = {amount: params["amount"], product_id: params["productId"]}
@@ -21,6 +22,7 @@ class OrdersController < ApplicationController
 
   # POST /orders
   # POST /orders.json
+  # save one order in the database
   def create
     attributes = {"current_user_id" => current_user.id}
     request_params = order_params
@@ -42,11 +44,13 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  # render the view to let the user enter the information about the order
   def new_cart_orders
     @order = Order.new
     session[:selected_cart_products] = params[:cart_product_ids]
   end
 
+  # create orders for selected items in the cart
   def create_cart_orders
     cart_order_params = params.permit(:name, :postcode, :address, :phone, :product_id, :amount, :current_user_id)
     message = Order.create_cart_orders session[:selected_cart_products], current_user.id, cart_order_params
@@ -65,6 +69,7 @@ class OrdersController < ApplicationController
   def check_out
   end
 
+  # pay for one order
   def pay_for_orders
     orders_selected = session[:orders_generated]
     orders_selected.each do |order|
@@ -78,11 +83,11 @@ class OrdersController < ApplicationController
     render :pay_for_orders
   end
 
+  # show the information of one order
   def show_order
     @orders = Order.show_order(params[:type], params[:page],current_user.id)
     type = params["type"]
     if type.to_s == 'purchase'
-      puts "<><><><><><><><>" + @orders.inspect
       render :show_purchase_order
       return
     elsif type == "sell"
@@ -107,6 +112,7 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1
   # DELETE /orders/1.json
+  # delete one order
   def destroy
     @order.destroy
     respond_to do |format|

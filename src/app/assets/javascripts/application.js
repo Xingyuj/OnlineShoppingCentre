@@ -60,4 +60,10 @@ $(function() {
             window.location.href = '/cart_products/new?productId='+product_id+'&amount='+amount.value;
         }
     });
+
+    $('#prouctImage').blur(function(){
+        var amount = document.getElementById("cartProduct").value;
+        window.location.href = '/cart_products/new?productId='+product_id+'&amount='+amount.value;
+
+    })
 });

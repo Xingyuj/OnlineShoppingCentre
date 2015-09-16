@@ -4,12 +4,14 @@ class ProductsController < ApplicationController
 
   # GET /products
   # GET /products.json
+  # return the products list
   def index
     @products = Product.search(params[:search], params[:page])
     @image_path = @product.images.first.path.to_s
     @image_path.slice!(0)
   end
 
+  # return the products of one category of one type
   def category_products
     @products = Product.category_products(params[:type], params[:category], params[:page])
     render :index
@@ -17,6 +19,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   # GET /products/1.json
+  # show the detail of the product
   def show
     @image_path = @product.images.first.path.to_s
     @image_path.slice!(0)
