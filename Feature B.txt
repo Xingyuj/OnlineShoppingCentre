@@ -1,0 +1,4 @@
+Feature B
+-Group 26
+
+For part 3, you will design and implement a feature that allows customers to buy products. Customers must be able to search for all products by entering a searching string, returning a listing, select one or more products to purchase,  and then complete the purchase (for this part, just 'confirming' a purchase will suffice -- there is no need to emulate a payment system). Customers can request for purchases to be cancelled, and administrators only can approve a cancellation request.
