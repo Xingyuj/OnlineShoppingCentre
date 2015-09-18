@@ -105,7 +105,8 @@ and using optimistic locking to ensure concurrence when multiple user attempt to
 	    quantity_runout = false
 	    Order.transaction do
 	      self.save!
-	      until quantity_runout || signal==true do
+	      logger.info "Order : "+self.id+" is successfully created"
+	      until quantity_runout do
 	        begin
 	          decrease_correspoding_product
 	        rescue ActiveRecord::StaleObjectError
@@ -117,6 +118,7 @@ and using optimistic locking to ensure concurrence when multiple user attempt to
 	        end
 	      end 
 	    end
+	    logger.info "Product : " + @product_id + "'s quantity run out!" unless !quantity_runout
 	    return signal
 	end
 
