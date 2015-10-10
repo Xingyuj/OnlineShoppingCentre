@@ -33,7 +33,13 @@ class ProductsController < ApplicationController
   
   def create_books
     @book = Book.new(product_params)
-
+    @image = Image.new
+    if(!params[:book][:image].blank?)
+      @image.path = params[:book][:image]
+    else
+      @image.path = "default.png"
+    end
+    @book.images << @image
     respond_to do |format|
       if @book.save
         format.html { render :create_products_successful, notice: 'Product was successfully created.' }
@@ -45,14 +51,19 @@ class ProductsController < ApplicationController
     end
   end
 
-
   def new_cloth
     @product = Cloth.new
   end
 
   def create_cloth
     @cloth = Cloth.new(product_params)
-
+    @image = Image.new
+    if(!params[:cloth][:image].blank?)
+      @image.path = params[:cloth][:image]
+    else
+      @image.path = "default.png"
+    end
+    @cloth.images << @image
     respond_to do |format|
       if @cloth.save
         format.html { render :create_products_successful, notice: 'Product was successfully created.' }
@@ -70,7 +81,13 @@ class ProductsController < ApplicationController
 
   def create_snacks
     @snack = Snack.new(product_params)
-
+    @image = Image.new
+    if(!params[:snack][:image].blank?)
+      @image.path = params[:snack][:image]
+    else
+      @image.path = "default.png"
+    end
+    @snack.images << @image
     respond_to do |format|
       if @snack.save
         format.html { render :create_products_successful, notice: 'Product was successfully created.' }
@@ -81,6 +98,7 @@ class ProductsController < ApplicationController
       end
     end
   end
+
   # GET /products/new
   def new
     @product = Product.new
