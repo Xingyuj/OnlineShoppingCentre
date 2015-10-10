@@ -7,8 +7,10 @@ class Order < ActiveRecord::Base
 	def self.show_order(type, page, current_user_id)
 		if type == 'purchase'
 			order("created_at DESC").where(buyer_id: current_user_id).paginate(page: page, per_page: 8)
-		elsif type == 'purchase'
+		elsif type == 'sell'
 			order("created_at DESC").where(seller_id: current_user_id).paginate(page: page, per_page: 8)
+		elsif type == 'revoke'
+			order("created_at DESC").where(status: 'Pending').paginate(page: page, per_page: 8)
 		end
 	end
 

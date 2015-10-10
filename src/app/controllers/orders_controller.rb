@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay, :approval, :update_reject_status]
 
   # GET /orders
   # GET /orders.json
@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
 
   # show the information of one order
   def show_order
-    @orders = Order.show_order(params[:type], params[:page],current_user.id)
+    @orders = Order.show_order(params[:type], params[:page], current_user.id)
     type = params["type"]
     if type.to_s == 'purchase'
       render :show_purchase_order
@@ -96,6 +96,34 @@ class OrdersController < ApplicationController
     end
   end
 
+  def approval
+    @order.status = "Cancelled"
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to request_manager_orders_path, notice: 'Requested Order was successfully approvaled.' }
+        format.json { redirect_to request_manager_orders_path, status: :ok, location: @order }
+      else
+        format.html { redirect_to request_manager_orders_path }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_reject_status
+    @order
+  end
+
+  def reject
+    respond_to do |format|
+      if @order.update(order_params)
+        format.html { redirect_to request_manager_orders_path, notice: 'Requested Order was successfully approvaled.' }
+        format.json { redirect_to request_manager_orders_path, status: :ok, location: @order }
+      else
+        format.html { redirect_to request_manager_orders_path }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
@@ -111,7 +139,7 @@ class OrdersController < ApplicationController
   end
 
   def request_manager
-    
+    @requested_orders = Order.show_order('revoke', params[:page], current_user.id)
   end
 
   # DELETE /orders/1
