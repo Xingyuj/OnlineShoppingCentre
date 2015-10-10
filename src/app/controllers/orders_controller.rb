@@ -110,6 +110,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def request_manager
+    
+  end
+
   # DELETE /orders/1
   # DELETE /orders/1.json
   # delete one order

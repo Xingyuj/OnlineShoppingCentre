@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915135824) do
+ActiveRecord::Schema.define(version: 20151010124553) do
 
   create_table "books", force: :cascade do |t|
     t.string   "publisher"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20150915135824) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "roles_mask",          default: 2,  null: false # roles_mask determin the role of a specific user. '1' represent admin; '2' represent paticipant.
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

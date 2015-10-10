@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       post :new_cart_orders
       post :create_cart_orders
       get :pay_for_orders
+      get :request_manager
     end
 
     member do

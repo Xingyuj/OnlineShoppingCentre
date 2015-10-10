@@ -5,6 +5,10 @@
       <ul class="nav navbar-nav pull-right">
         <% if signed_in? %>
 
+          <% if current_user.has_role? :admin %>
+          <li><%= link_to "Manage Request", "/orders/request_manager" %></li>
+          <% end %>
+
           <li><%= link_to "Sell", "/products/choose_new_type" %></li>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
