@@ -1,1 +1,74 @@
-<h1>New Snacks</h1>
+<h1>Please fill out the details about the snacks you are selling</h1>
+
+<%= form_for @product, url: create_snacks_products_path(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :manufacture_date %><br>
+    <%= f.datetime_select :manufacture_date %>
+  </div>
+  <div class="field">
+    <%= f.label :best_before %><br>
+    <%= f.datetime_select :best_before %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :brand %><br>
+    <%= f.text_field :brand %>
+  </div>
+  <div class="field">
+    <%= f.label :production_place %><br>
+    <%= f.text_field :production_place %>
+  </div>
+  <div class="field">
+    <%= f.label :ingredient %><br>
+    <%= f.text_field :ingredient %>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br>
+    <%= f.text_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.text_field :quantity %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', :back %>

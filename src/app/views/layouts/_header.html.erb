@@ -4,7 +4,9 @@
     <nav>
       <ul class="nav navbar-nav pull-right">
         <% if signed_in? %>
-           <li id="fat-menu" class="dropdown">
+
+          <li><%= link_to "Sell", "/products/choose_new_type" %></li>
+          <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               My Order <b class="caret"></b>
             </a>

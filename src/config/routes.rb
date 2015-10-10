@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       get :new_cloth
       get :new_snacks
       get :category_products
+      post :create_books
+      post :create_snacks
+      post :create_cloth
     end
 
     member do

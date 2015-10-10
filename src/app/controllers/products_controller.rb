@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except:[:index, :show, :category_products]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token  
+  skip_before_filter :verify_authenticity_token
 
   # GET /products
   # GET /products.json
@@ -31,10 +31,55 @@ class ProductsController < ApplicationController
     @product = Book.new
   end
   
+  def create_books
+    @book = Book.new(product_params)
+
+    respond_to do |format|
+      if @book.save
+        format.html { render :create_products_successful, notice: 'Product was successfully created.' }
+        format.json { render :create_products_successful, status: :created, location: @product }
+      else
+        format.html { render :new }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   def new_cloth
+    @product = Cloth.new
+  end
+
+  def create_cloth
+    @cloth = Cloth.new(product_params)
+
+    respond_to do |format|
+      if @cloth.save
+        format.html { render :create_products_successful, notice: 'Product was successfully created.' }
+        format.json { render :create_products_successful, status: :created, location: @product }
+      else
+        format.html { render :new }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def new_snacks
+    @product = Snack.new
+  end
+
+  def create_snacks
+    @snack = Snack.new(product_params)
+
+    respond_to do |format|
+      if @snack.save
+        format.html { render :create_products_successful, notice: 'Product was successfully created.' }
+        format.json { render :create_products_successful, status: :created, location: @product }
+      else
+        format.html { render :new }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
   end
   # GET /products/new
   def new
@@ -48,12 +93,21 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-
+    if params.keys.include? "book"
+        attributes = params.require(:book).permit(:name, :price, :description)
+        @product = Book.new(attributes)
+    elsif params.keys.include? "cloth"
+        attributes = params.require(:cloth).permit(:name, :quantity, :price, :description)
+        @product = Book.new(attributes)
+    elsif params.keys.include? "snack"
+        attributes = params.require(:snack).permit(:name, :quantity, :price, :description)
+        @product = Book.new(attributes)
+    end
+    # render :create_products_successful
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
+        format.html { render :create_products_successful, notice: 'Product was successfully created.' }
+        format.json { render :create_products_successful, status: :created, location: @product }
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -93,6 +147,14 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :quantity, :price, :description)
+      if params.keys.include? "book"
+      puts "<><><><>!!!!!!!" + params.keys.to_s
+        params.require(:book).permit(:name, :quantity, :price, :description)
+      elsif params.keys.include? "cloth"
+        params.require(:cloth).permit(:name, :quantity, :price, :description)
+      elsif params.keys.include? "snack"
+        params.require(:snack).permit(:name, :quantity, :price, :description)
+      end
+      # params.require(:product).permit(:name, :quantity, :price, :description)
     end
 end
