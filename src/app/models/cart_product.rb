@@ -20,6 +20,10 @@ class CartProduct < ActiveRecord::Base
 			@show_cart_list.paginate(page: page, per_page: 5)
 	end
 
+=begin
+	 if the same product exists in the cart, return the CartProduct
+	 else return nil
+=end
 	def self.ifSameProductExist (productId, current_user_id)
 		@cart_products = CartProduct.where(user_id: current_user_id)
 		@cart_products.each do |cart_product|

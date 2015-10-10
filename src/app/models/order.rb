@@ -105,7 +105,7 @@ and using optimistic locking to ensure concurrence when multiple user attempt to
 	    quantity_runout = false
 	    Order.transaction do
 	      self.save!
-	      logger.info "Order : "+self.id+" is successfully created"
+	      logger.info "Order : "+ self.id.to_s+" is successfully created"
 	      until quantity_runout do
 	        begin
 	          decrease_correspoding_product
@@ -118,7 +118,7 @@ and using optimistic locking to ensure concurrence when multiple user attempt to
 	        end
 	      end 
 	    end
-	    logger.info "Product : " + @product_id + "'s quantity run out!" unless !quantity_runout
+	    logger.info "Product : " + @product_id.to_s + "'s quantity run out!" unless !quantity_runout
 	    return signal
 	end
 
