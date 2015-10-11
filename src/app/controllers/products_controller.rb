@@ -20,8 +20,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   # show the detail of the product
   def show
-    @image_path = @product.images.first.path.to_s
-    @image_path.slice!(0)
+    @image_path = @product.images.first.path_url
   end
 
   def choose_new_type

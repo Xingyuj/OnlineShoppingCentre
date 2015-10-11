@@ -1,6 +1,6 @@
 <p id="notice" xmlns:class="http://www.w3.org/1999/xhtml"><%= notice %></p>
 
-<div><%= image_tag @image_path %></div>
+<div><%= image_tag @image_path, size:"500" %></div>
 <div>
 <dl class="dl-horizontal">
   <% @product.specific.attributes.each_pair do |name, value| %>
