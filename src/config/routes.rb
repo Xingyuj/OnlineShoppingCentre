@@ -46,6 +46,8 @@ Rails.application.routes.draw do
       get :update_reject_status
       patch :reject
       get :refund
+      get :confirm
+      get :ship
     end
   end
 

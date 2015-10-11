@@ -10,6 +10,7 @@
     <th style = "text-align:center;">Pay</th>
     <th style = "text-align:center;">Delete</th>
     <th style = "text-align:center;">Refund</th>
+    <th style = "text-align:center;">ConfirmReceived</th>
   </tr>
   </thead>
   <tbody>
@@ -30,12 +31,19 @@
         </td>
 
         <td>
-        <%= button_to "Delete", order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
-      </td>
+          <% if order.status == 'unpaid' || order.status == 'Received'%>
+          <%= button_to "Delete", order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+          <% end %>
+        </td>
 
       <td>
         <% if order.status != 'unpaid' && order.status != 'Cancelled' && order.status != 'Pending'%>
         <%= button_to "Refund", refund_order_path(order), method: :get, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+        <% end %>
+      </td>
+      <td>
+        <% if order.status == 'Shipped' %>
+        <%= button_to "ConfirmReceived", confirm_order_path(order), method: :get, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
         <% end %>
       </td>
       </tr>

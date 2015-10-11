@@ -8,6 +8,7 @@
     <th style = "text-align:center;">created_at</th>
     <th style = "text-align:center;">Detail</th>
     <th style = "text-align:center;">Delete</th>
+    <th style = "text-align:center;">Shipped</th>
   </tr>
   </thead>
   <tbody>
@@ -22,7 +23,15 @@
         </td>
 
         <td>
+          <% if order.status == 'unpaid' || order.status == 'Received'%>
         <%= button_to "Delete", order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+        <% end %>
+      </td>
+
+      <td>
+        <% if order.status == 'Paid'%>
+          <%= button_to "Shipped", ship_order_path(order), method: :get, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+        <% end %>
       </td>
       </tr>
   <% end %>

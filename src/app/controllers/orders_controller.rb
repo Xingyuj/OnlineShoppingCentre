@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay, :approval, :update_reject_status, :refund, :reject]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay, :approval, :update_reject_status, :refund, :reject, :confirm, :ship]
 
   # GET /orders
   # GET /orders.json
@@ -168,6 +168,35 @@ class OrdersController < ApplicationController
     end
 
   end
+
+  def confirm
+    @order.status = "Received"
+    respond_to do |format|
+      if @order.save
+        @orders = Order.show_order("purchase", params[:page], current_user.id)
+        format.html { render :show_purchase_order, notice: 'Refund request was successfully created.' }
+        format.json { render :show_purchase_order, status: :ok, location: @order }
+      else
+        format.html { render :edit }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def ship
+    @order.status = "Shipped"
+    respond_to do |format|
+      if @order.save
+        @orders = Order.show_order("sell", params[:page], current_user.id)
+        format.html { render :show_sell_order, notice: 'Refund request was successfully created.' }
+        format.json { render :show_sell_order, status: :ok, location: @order }
+      else
+        format.html { render :edit }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
