@@ -166,7 +166,6 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       if params.keys.include? "book"
-      puts "<><><><>!!!!!!!" + params.keys.to_s
         params.require(:book).permit(:name, :quantity, :price, :description)
       elsif params.keys.include? "cloth"
         params.require(:cloth).permit(:name, :quantity, :price, :description)

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay, :approval, :update_reject_status, :refund]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay, :approval, :update_reject_status, :refund, :reject]
 
   # GET /orders
   # GET /orders.json
@@ -116,7 +116,7 @@ class OrdersController < ApplicationController
   def reject
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to request_manager_orders_path, notice: 'Requested Order was successfully approvaled.' }
+        format.html { redirect_to request_manager_orders_path, notice: 'Status of Requested Order was successfully modofied.' }
         format.json { redirect_to request_manager_orders_path, status: :ok, location: @order }
       else
         format.html { redirect_to request_manager_orders_path }
