@@ -24,7 +24,9 @@
         </td>
 
         <td>
+          <% if order.status == 'unpaid' %>
           <%= button_to "Pay", pay_order_path(order), method: :get, class: "btn btn-primary" %>
+          <% end %>
         </td>
 
         <td>
@@ -32,7 +34,9 @@
       </td>
 
       <td>
+        <% if order.status != 'unpaid' && order.status != 'Cancelled' && order.status != 'Pending'%>
         <%= button_to "Refund", refund_order_path(order), method: :get, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+        <% end %>
       </td>
       </tr>
   <% end %>

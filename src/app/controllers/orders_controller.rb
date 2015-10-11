@@ -148,8 +148,9 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+      @orders = Order.show_order("purchase", params[:page], current_user.id)
+      format.html { render :show_purchase_order, notice: 'Refund request was successfully created.' }
+      format.json { render :show_purchase_order, status: :ok, location: @order }
     end
   end
 
