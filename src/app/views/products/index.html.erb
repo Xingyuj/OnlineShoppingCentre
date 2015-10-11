@@ -18,7 +18,7 @@
   <tbody>
   <% @products.each do |product| %>
       <tr>
-        <td><%= link_to image_tag(product.images.first.path.to_s[1, product.images.first.path.to_s.length], size:"80", id: "prouctImage"),product%></td>
+        <td><%= link_to image_tag(product.images.first.path_url, size:"80", id: "prouctImage"),product%></td>
         <td><%= link_to product.title ,product%></td>
         <td><%= link_to product.name ,product%></td>
         <td><%= product.quantity %></td>

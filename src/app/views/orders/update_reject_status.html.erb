@@ -1,5 +1,5 @@
 <h1> Choose a status </h1>
-<%= form_for @order, url: reject_orders_path(@order) do |f| %>
+<%= form_for @order, url: reject_order_path(@order) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>

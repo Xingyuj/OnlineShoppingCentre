@@ -35,7 +35,6 @@ Rails.application.routes.draw do
       post :create_cart_orders
       get :pay_for_orders
       get :request_manager
-      post :reject
     end
 
     member do
@@ -45,6 +44,8 @@ Rails.application.routes.draw do
       delete :destroy
       get :approval
       get :update_reject_status
+      patch :reject
+      get :refund
     end
   end
 
