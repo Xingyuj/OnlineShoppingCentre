@@ -9,6 +9,7 @@
     <th style = "text-align:center;">Detail</th>
     <th style = "text-align:center;">Pay</th>
     <th style = "text-align:center;">Delete</th>
+    <th style = "text-align:center;">Refund</th>
   </tr>
   </thead>
   <tbody>
@@ -25,8 +26,13 @@
         <td>
           <%= button_to "Pay", pay_order_path(order), method: :get, class: "btn btn-primary" %>
         </td>
+
         <td>
         <%= button_to "Delete", order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+      </td>
+
+      <td>
+        <%= button_to "Refund", refund_order_path(order), method: :get, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
       </td>
       </tr>
   <% end %>

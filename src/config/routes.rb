@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       delete :destroy
       get :approval
       get :update_reject_status
+      get :refund
     end
   end
 
