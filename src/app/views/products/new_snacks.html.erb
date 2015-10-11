@@ -14,6 +14,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
     <%= f.label :price %><br>
     <%= f.number_field :price %>
   </div>
@@ -22,7 +26,7 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :Snackname %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
@@ -36,10 +40,6 @@
   <div class="field">
     <%= f.label :best_before %><br>
     <%= f.datetime_select :best_before %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
   </div>
   <div class="field">
     <%= f.label :brand %><br>
@@ -58,14 +58,9 @@
     <%= f.text_field :weight %>
   </div>
   <div class="field">
-    <%= f.label :category %><br>
-    <%= f.text_field :category %>
+  <%= f.label :category %><br>
+  <%= f.select(:category, ['Top', 'Bottom', 'Outwear'], :class => 'my_style_class')%>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.text_field :quantity %>
-  </div>
-
   <div class="actions">
     <%= f.submit %>
   </div>

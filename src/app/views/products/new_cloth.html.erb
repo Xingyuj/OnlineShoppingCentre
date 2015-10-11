@@ -54,14 +54,9 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :category %><br>
-    <%= f.text_field :category %>
+  <%= f.label :category %><br>
+  <%= f.select(:category, ['ChipsCrips', 'Cookies', 'Jerky', 'NutsSeeds'], :class => 'my_style_class')%>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.text_field :quantity %>
-  </div>
-
   <div class="actions">
     <%= f.submit %>
   </div>
