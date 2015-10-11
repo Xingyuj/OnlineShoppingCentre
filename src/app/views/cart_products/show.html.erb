@@ -14,6 +14,6 @@
     <%= link_to 'Check out', '/orders/new?productId='+ @product.id.to_s + '&amount='+ @cart_product.quantity.to_s, class: "btn btn-info"%>
   </div>
   <div class="btn-group" role="group" aria-label="Back">
-    <%= link_to 'Back', @product, class: "btn btn-info"%>
+    <%= link_to 'Back', :back, class: "btn btn-info"%>
   </div>
 </div>
