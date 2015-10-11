@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #post "cart_products/update_quantity" => "cart_products#update_quantity"
   resources :products do
     collection do 
       get :choose_new_type
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   resources :cart_products do
     collection do
       get :show_cart
+      get :update_quantity
     end
     member do
       get :destory

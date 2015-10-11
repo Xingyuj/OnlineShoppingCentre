@@ -64,6 +64,23 @@ $(function() {
     $('#prouctImage').blur(function(){
         var amount = document.getElementById("cartProduct").value;
         window.location.href = '/cart_products/new?productId='+product_id+'&amount='+amount.value;
+    });
 
+    // detect if the quantity of the cartProduct exceed the stock
+    $('input[name="purchase[quantity]"]').blur(function(){
+        var number = this.value
+        $.ajax({
+            type : 'get',
+            url : "/cart_products/update_quantity",
+            dataType: "json",
+            data : {cartProductId: $(this).parent().parent().children().eq(0).children().eq(0).val(), quantity: this.value },
+
+            success : function(response) {
+                if (response < number) {
+                    alert("the stock is " + response + ", Please enter a new number")
+                }
+            }
+        });
     })
-});
+
+})

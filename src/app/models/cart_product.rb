@@ -33,5 +33,16 @@ class CartProduct < ActiveRecord::Base
 		end
 		return nil
 	end
+
+	def self.update_quantity(cartProductId, quantity)
+			cartProduct = CartProduct.find cartProductId
+			product = Product.find cartProduct.product_id
+			if quantity <= product.quantity
+				cartProduct.update(quantity: quantity)
+				return quantity
+			else
+				return product.quantity
+			end
+	end
 end
 

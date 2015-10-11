@@ -86,6 +86,15 @@ class CartProductsController < ApplicationController
     end
   end
 
+  def update_quantity
+    respond_to do |format|
+        format.html
+        format.json {render json: CartProduct.update_quantity(params["cartProductId"].to_i, params["quantity"].to_i)}
+    end
+  end
+
+
+
   # DELETE /cart_products/1
   # DELETE /cart_products/1.json
   # delete one product from the cart
