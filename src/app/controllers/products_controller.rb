@@ -40,6 +40,7 @@ class ProductsController < ApplicationController
       @image.path = "default.png"
     end
     @book.images << @image
+    @book.seller_id = current_user.id
     respond_to do |format|
       if @book.save
         format.html { render :create_products_successful, notice: 'Product was successfully created.' }
@@ -166,7 +167,7 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       if params.keys.include? "book"
-        params.require(:book).permit(:name, :quantity, :price, :description)
+        params.require(:book).permit(:name, :quantity, :price, :description, :category, :title, :author, :publisher)
       elsif params.keys.include? "cloth"
         params.require(:cloth).permit(:name, :quantity, :price, :description)
       elsif params.keys.include? "snack"
