@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy, :check_out, :pay, :approval, :update_reject_status, :refund, :reject, :confirm, :ship]
+  before_action :authenticate_user!
 
   # GET /orders
   # GET /orders.json
@@ -139,7 +140,11 @@ class OrdersController < ApplicationController
   end
 
   def request_manager
-    @requested_orders = Order.show_order('revoke', params[:page], current_user.id)
+    if current_user.has_role? :admin
+      @requested_orders = Order.show_order('revoke', params[:page], current_user.id)
+    else
+      render :has_no_perimission
+    end
   end
 
   # DELETE /orders/1

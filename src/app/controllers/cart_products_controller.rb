@@ -1,5 +1,7 @@
 class CartProductsController < ApplicationController
   before_action :set_cart_product, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
   # GET /cart_products
   # GET /cart_products.json
   def index
