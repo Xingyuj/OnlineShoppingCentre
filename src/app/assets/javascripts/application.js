@@ -69,6 +69,8 @@ $(function() {
     // detect if the quantity of the cartProduct exceed the stock
     $('input[name="purchase[quantity]"]').blur(function(){
         var number = this.value
+        var unit = $(this).parent().parent().children().eq(2).html()
+        var sum = $(this).parent().parent().children().eq(4)
         $.ajax({
             type : 'get',
             url : "/cart_products/update_quantity",
@@ -78,9 +80,12 @@ $(function() {
             success : function(response) {
                 if (response < number) {
                     alert("the stock is " + response + ", Please enter a new number")
+                } else {
+                    sum.html(unit * number)
                 }
             }
         });
     })
+
 
 })
