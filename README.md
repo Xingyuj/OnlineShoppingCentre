@@ -3,110 +3,53 @@
 ## Installation
 
 Dependencies:
-- [Node.js](http://nodejs.org/)
+- [rails](http://http://rubyonrails.org/)
 - [git](http://git-scm.com/)
-- [MongoDB](http://www.mongodb.org/)
+- [sqlite3](https://sqlite.org/)
 
 Installing the project:
+1. clone the repo
 ```
-git clone https://benkaiser@bitbucket.org/benkaiser/iasurvey.git # clone the repo
-cd iasurvey # move into the repository directory
-npm install # install the dependencies of the project
+git clone git clone https://bitbucket.org/XingyuJi/swen90007project_ebuy.git # clone the repo
 ```
-
+2. move into the repository directory
+```
+cd ebuy-shopping-centre
+```
+3. Install Rails at the command prompt if you haven't yet:
+```
+gem install rails # install the dependencies of the project
+```
+4. Install dependencies
+```
+gem install bundler
+gem update bundler
+bundle install
+```
 ## Usage
 
 To run the server:
 ```
-PORT=XXXX node app.js
+rails s -r xxxx
 ```
-where `XXXX` is the port number you wish to run the application on (defaults to 2000)
+where `XXXX` is the port number you wish to run the application on (if omit parameter -r the server will run on default port 3000)
 
-## Unit Testing
-
-To run the tests you will first need to install mocha with:
-```
-npm install -g mocha
-```
-Installing modules globally usually requires superuser permissions. In this case run:
-```
-sudo npm install -g mocha
-```
-
-Then to run the tests (located in the `test/` directory)
-```
-mocha
-```
-
-## Integration Testing
-
-To run the integration tests on windows 7 x64, you need to download and install
-```
-phantomjs 1.9.7
-casperjs 1.1.0-beta3
-python 2.7.8
-```
-And import the data from json file when it is needed.
-
-(1) To run the test for account management function, direct to `test/client_side_test` and run:
-```
-casperjs test manage_account.js
-```
-If you cancel the test during the program is running, please delete the account created by the test program, so that the test program can work again
-
-(2) To run the test for filling out a survey, direct to `data/surveys` and enter to import the data first:
-```
-mongoimport -d iasurvey -c survey every_question_type.json
-```
-Then direct to `test/client_side_test` and run:
-```
-casperjs test filling_out_a_survey.js
-```
-(3) To run the test for viewing the result of surveys, you need to drop the data you have now and import one from a json file
-Open Mongodb and enter:
-```
-use iasurvey
-db.result.drop()
-```
-Then, run the command in `data/result` to import the result data:
-```
-mongoimport -d iasurvey -c survey tresult.json
-```
-At last, locate in `test/client_side_test`, enter:
-```
-casperjs test view_result.js
-```
 ## Documentation for libraries used
 
 Server-side
 
-- [express](http://expressjs.com/) for web framework
-- [mongojs](https://github.com/mafintosh/mongojs) for database connectivity
-- [connect-mongo](https://github.com/kcbanner/connect-mongo) for storing express sessions in mongodb (keeping session data between server restarts)
-- [node-schedule](https://github.com/mattpat/node-schedule) for scheduling email blasts
-- [nodemailer](https://github.com/andris9/Nodemailer) for sending emails
-- [password-hash](https://github.com/davidwood/node-password-hash) for encrypting passwords
-- [socket.io](https://github.com/Automattic/socket.io) for easy websocket connections (making for a fast and easy to develop client-side app)
-- [swig](http://paularmstrong.github.io/swig/docs/) templating engine for node and javascript (server-side and client-side)
-- [supertest](https://github.com/visionmedia/supertest) for testing calls to webpages
+- [role_model](https://github.com/martinrehfeld/role_model) RoleModel is the framework agnostic, efficient and declarative way to do (user) roles. Assigned roles will be efficiently stored as a bitmask directly into your model within a configurable attribute.
+- [carrierwave](https://github.com/carrierwaveuploader/carrierwave) This gem provides a simple and extremely flexible way to upload files from Ruby applications. It works well with Rack based web applications, such as Ruby on Rails.
+- [will_paginate](https://github.com/mislav/will_paginate)will_paginate is a pagination library that integrates with Ruby on Rails, Sinatra, Merb, DataMapper and Sequel.
+- [devise](https://github.com/plataformatec/devise)Devise is a flexible authentication solution for Rails based on Warden.
+- [sass-rails](https://github.com/rails/sass-rails) This gem provides official integration for Ruby on Rails projects with the Sass stylesheet language.
+- [uglifier](https://github.com/lautis/uglifier) Use Uglifier as compressor for JavaScript assets
+- [coffee-rails](https://github.com/rails/coffee-rails) Use CoffeeScript for .coffee assets and views
 
 Client-side
 
-- [formbuilder](https://github.com/dobtco/formbuilder) for the IA staff to construct surveys ([Ben's fork](https://github.com/benkaiser/formbuilder))
-- [backbone.js](http://backbonejs.org/) for client-side MVC
-- [marionette](http://marionettejs.com/) for extra functionality on top of backbone.js
 - [jquery](http://jquery.com/) fast, small, and feature-rich javascript library that makes DOM-traversal easy
 - [Bootstrap](http://getbootstrap.com/) as a good-looking CSS framework
-- [head.js](http://headjs.com/) load css and js asynchronously, speeding up page-load
-- [sift.js](https://github.com/crcn/sift.js) for querying the results array
-- [html5csv](https://github.com/DrPaulBrewer/html5csv) for generating and triggering the csv download from the results page
-- [phantomjs](http://phantomjs.org) for integration testing environment
-- [casperjs](http://casperjs.org) for runing the integration testing programs
+- [jbuilder](https://github.com/rails/jbuilder) Build JSON APIs with ease.
 
 All other frameworks used are either part of the above, dependencies of the above or perform a function to trivial to mention.
-
-## Other info
-
-- [Javascript style-guide](https://github.com/airbnb/javascript)
-- [How to use mongoexport](http://docs.mongodb.org/manual/reference/program/mongoexport/)
-- [How to use mongoimport](http://docs.mongodb.org/manual/reference/program/mongoimport/)
