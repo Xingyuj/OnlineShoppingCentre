@@ -30,6 +30,7 @@ gem install bundler
 gem update bundler
 bundle install
 ```
+
 ## Usage
 
 To run the server:
