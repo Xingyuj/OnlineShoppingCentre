@@ -9,19 +9,23 @@ Dependencies:
 
 Installing the project:
 1. clone the repo
-```
+ 
+ ```
 git clone git clone https://bitbucket.org/XingyuJi/swen90007project_ebuy.git # clone the repo
 ```
 2. move into the repository directory
-```
+ 
+ ```
 cd ebuy-shopping-centre
 ```
 3. Install Rails at the command prompt if you haven't yet:
-```
+ 
+ ```
 gem install rails # install the dependencies of the project
 ```
 4. Install dependencies
-```
+ 
+ ```
 gem install bundler
 gem update bundler
 bundle install
