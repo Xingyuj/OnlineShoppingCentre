@@ -1,5 +1,5 @@
 # Ebuy system
-
+A C2C on-line shopping centre project, implementing in ruby on rails
 ## Installation
 
 Dependencies:
