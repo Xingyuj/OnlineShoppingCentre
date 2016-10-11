@@ -8,6 +8,7 @@ Dependencies:
 - [sqlite3](https://sqlite.org/)
 
 Installing the project:
+
 1. clone the repo
  
  ```
